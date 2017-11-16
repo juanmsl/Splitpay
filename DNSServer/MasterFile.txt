@@ -1,0 +1,11 @@
+$ORIGIN splitpay.com
+
+; hosts
+database          IN      A       127.0.0.1
+webserver         IN      A       127.0.0.1
+server            IN      A       127.0.0.1
+topic             IN      A       127.0.0.1
+queue             IN      A       127.0.0.1
+netserver         IN      A       127.0.0.1
+paypal            IN      A       127.0.0.1
+
