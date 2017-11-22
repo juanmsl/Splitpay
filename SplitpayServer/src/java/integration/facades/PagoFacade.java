@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Stateless
 public class PagoFacade extends AbstractFacade<Pago> implements integration.facades.PagoFacadeRemote {

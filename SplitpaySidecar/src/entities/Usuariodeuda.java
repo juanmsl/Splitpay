@@ -7,7 +7,6 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -16,12 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Entity
 @Table(name = "USUARIODEUDA")
@@ -36,8 +34,6 @@ public class Usuariodeuda implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UsuariodeudaPK usuariodeudaPK;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "MONTO")
     private BigInteger monto;
     @JoinColumn(name = "DEUDA_ID", referencedColumnName = "ID", insertable = false, updatable = false)
@@ -52,11 +48,6 @@ public class Usuariodeuda implements Serializable {
 
     public Usuariodeuda(UsuariodeudaPK usuariodeudaPK) {
         this.usuariodeudaPK = usuariodeudaPK;
-    }
-
-    public Usuariodeuda(UsuariodeudaPK usuariodeudaPK, BigInteger monto) {
-        this.usuariodeudaPK = usuariodeudaPK;
-        this.monto = monto;
     }
 
     public Usuariodeuda(BigInteger usuarioId, BigInteger deudaId) {

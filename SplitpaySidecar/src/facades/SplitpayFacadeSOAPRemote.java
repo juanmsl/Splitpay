@@ -6,7 +6,10 @@
 package facades;
 
 import entities.Deuda;
+import entities.Grupo;
 import entities.Pago;
+import entities.Usuario;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -16,8 +19,18 @@ import javax.ejb.Remote;
 @Remote
 public interface SplitpayFacadeSOAPRemote {
 
+    Usuario registerUser(Usuario user);
+
+    Usuario loginUser(Usuario user);
+
     boolean postingBill(Deuda debt);
 
     boolean doPayment(Pago payment);
+
+    boolean finalDebtResolution(Grupo group);
+
+    Grupo createGroup(Grupo group);
+
+    boolean addMembers(List<Usuario> members);
     
 }

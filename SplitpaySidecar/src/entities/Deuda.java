@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Entity
 @Table(name = "DEUDA")
@@ -42,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Deuda.findByNombre", query = "SELECT d FROM Deuda d WHERE d.nombre = :nombre")
     , @NamedQuery(name = "Deuda.findByCosto", query = "SELECT d FROM Deuda d WHERE d.costo = :costo")
     , @NamedQuery(name = "Deuda.findByFecha", query = "SELECT d FROM Deuda d WHERE d.fecha = :fecha")
-    , @NamedQuery(name = "Deuda.findById2", query = "SELECT d FROM Deuda d WHERE d.id2 = :id2")})
+    , @NamedQuery(name = "Deuda.findByDocumentoId", query = "SELECT d FROM Deuda d WHERE d.documentoId = :documentoId")})
 public class Deuda implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,15 +61,12 @@ public class Deuda implements Serializable {
     private Date fecha;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "ID2")
-    private BigInteger id2;
+    @Column(name = "DOCUMENTO_ID")
+    private BigInteger documentoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deuda")
     private List<Usuariodeuda> usuariodeudaList;
     @OneToMany(mappedBy = "deudaId")
     private List<Pago> pagoList;
-    @JoinColumn(name = "DOCUMENTO_ID", referencedColumnName = "ID")
-    @OneToOne(optional = false)
-    private Documento documentoId;
     @JoinColumn(name = "GRUPO_ID", referencedColumnName = "ID")
     @ManyToOne
     private Grupo grupoId;
@@ -85,9 +81,9 @@ public class Deuda implements Serializable {
         this.id = id;
     }
 
-    public Deuda(BigDecimal id, BigInteger id2) {
+    public Deuda(BigDecimal id, BigInteger documentoId) {
         this.id = id;
-        this.id2 = id2;
+        this.documentoId = documentoId;
     }
 
     public BigDecimal getId() {
@@ -122,12 +118,12 @@ public class Deuda implements Serializable {
         this.fecha = fecha;
     }
 
-    public BigInteger getId2() {
-        return id2;
+    public BigInteger getDocumentoId() {
+        return documentoId;
     }
 
-    public void setId2(BigInteger id2) {
-        this.id2 = id2;
+    public void setDocumentoId(BigInteger documentoId) {
+        this.documentoId = documentoId;
     }
 
     @XmlTransient
@@ -146,14 +142,6 @@ public class Deuda implements Serializable {
 
     public void setPagoList(List<Pago> pagoList) {
         this.pagoList = pagoList;
-    }
-
-    public Documento getDocumentoId() {
-        return documentoId;
-    }
-
-    public void setDocumentoId(Documento documentoId) {
-        this.documentoId = documentoId;
     }
 
     public Grupo getGrupoId() {

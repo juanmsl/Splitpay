@@ -21,11 +21,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Entity
 @Table(name = "PAGO")
@@ -34,7 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Pago.findAll", query = "SELECT p FROM Pago p")
     , @NamedQuery(name = "Pago.findById", query = "SELECT p FROM Pago p WHERE p.id = :id")
     , @NamedQuery(name = "Pago.findByFecha", query = "SELECT p FROM Pago p WHERE p.fecha = :fecha")
-    , @NamedQuery(name = "Pago.findByMonto", query = "SELECT p FROM Pago p WHERE p.monto = :monto")})
+    , @NamedQuery(name = "Pago.findByMonto", query = "SELECT p FROM Pago p WHERE p.monto = :monto")
+    , @NamedQuery(name = "Pago.findByConcepto", query = "SELECT p FROM Pago p WHERE p.concepto = :concepto")
+    , @NamedQuery(name = "Pago.findByDescripcion", query = "SELECT p FROM Pago p WHERE p.descripcion = :descripcion")})
 public class Pago implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,6 +52,12 @@ public class Pago implements Serializable {
     private Date fecha;
     @Column(name = "MONTO")
     private BigInteger monto;
+    @Size(max = 100)
+    @Column(name = "CONCEPTO")
+    private String concepto;
+    @Size(max = 100)
+    @Column(name = "DESCRIPCION")
+    private String descripcion;
     @JoinColumn(name = "DEUDA_ID", referencedColumnName = "ID")
     @ManyToOne
     private Deuda deudaId;
@@ -85,6 +94,22 @@ public class Pago implements Serializable {
 
     public void setMonto(BigInteger monto) {
         this.monto = monto;
+    }
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Deuda getDeudaId() {

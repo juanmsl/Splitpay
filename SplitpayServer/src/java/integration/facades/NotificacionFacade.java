@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Stateless
 public class NotificacionFacade extends AbstractFacade<Notificacion> implements integration.facades.NotificacionFacadeRemote {

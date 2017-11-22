@@ -11,7 +11,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Remote
 public interface DeudaFacadeRemote {

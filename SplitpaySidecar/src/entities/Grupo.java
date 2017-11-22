@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Entity
 @Table(name = "GRUPO")

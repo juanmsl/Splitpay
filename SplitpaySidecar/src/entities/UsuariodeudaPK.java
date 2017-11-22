@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Embeddable
 public class UsuariodeudaPK implements Serializable {

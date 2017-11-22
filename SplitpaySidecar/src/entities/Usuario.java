@@ -7,18 +7,21 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sala-bd
+ * @author sala_a
  */
 @Entity
 @Table(name = "USUARIO")
@@ -35,9 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
     , @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id")
     , @NamedQuery(name = "Usuario.findByNombre", query = "SELECT u FROM Usuario u WHERE u.nombre = :nombre")
-    , @NamedQuery(name = "Usuario.findByTelefono", query = "SELECT u FROM Usuario u WHERE u.telefono = :telefono")
     , @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
-    , @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username")})
+    , @NamedQuery(name = "Usuario.findByContrasena", query = "SELECT u FROM Usuario u WHERE u.contrasena = :contrasena")
+    , @NamedQuery(name = "Usuario.findByTipodocumento", query = "SELECT u FROM Usuario u WHERE u.tipodocumento = :tipodocumento")
+    , @NamedQuery(name = "Usuario.findByNumdocumento", query = "SELECT u FROM Usuario u WHERE u.numdocumento = :numdocumento")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,22 +49,26 @@ public class Usuario implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @GeneratedValue(generator = "USER_ID")
+    @SequenceGenerator(name="USER_ID",sequenceName="USUARIO_ID_SEQ", allocationSize=1)
     @Column(name = "ID")
     private BigDecimal id;
     @Size(max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
-    @Column(name = "TELEFONO")
-    private BigInteger telefono;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 100)
     @Column(name = "EMAIL")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "USERNAME")
-    private String username;
+    @Size(max = 100)
+    @Column(name = "CONTRASENA")
+    private String contrasena;
+    @Size(max = 100)
+    @Column(name = "TIPODOCUMENTO")
+    private String tipodocumento;
+    @Size(max = 100)
+    @Column(name = "NUMDOCUMENTO")
+    private String numdocumento;
     @ManyToMany(mappedBy = "usuarioList")
     private List<Grupo> grupoList;
     @OneToMany(mappedBy = "usuarioId")
@@ -81,11 +89,6 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Usuario(BigDecimal id, String username) {
-        this.id = id;
-        this.username = username;
-    }
-
     public BigDecimal getId() {
         return id;
     }
@@ -102,14 +105,6 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    public BigInteger getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(BigInteger telefono) {
-        this.telefono = telefono;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -118,12 +113,28 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public String getTipodocumento() {
+        return tipodocumento;
+    }
+
+    public void setTipodocumento(String tipodocumento) {
+        this.tipodocumento = tipodocumento;
+    }
+
+    public String getNumdocumento() {
+        return numdocumento;
+    }
+
+    public void setNumdocumento(String numdocumento) {
+        this.numdocumento = numdocumento;
     }
 
     @XmlTransient
@@ -204,5 +215,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "entities.Usuario[ id=" + id + " ]";
     }
-    
+
 }
