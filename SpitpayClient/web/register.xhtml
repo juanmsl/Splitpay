@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+        <link rel="stylesheet" href="css/styles.css"></link>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form>
+                <p>Nombre</p>
+                <h:inputText value="#{mBRegisterController.nombre}" />
+                <p>Email</p>
+                <h:inputText value="#{mBRegisterController.email}" />
+                <p>Contraseña</p>
+                <h:inputText value="#{mBRegisterController.contrasena}" />
+                <p>Tipo documento</p>
+                <h:inputText value="#{mBRegisterController.tipoDocumento}" />
+                <p>Número de documento</p>
+                <h:inputText value="#{mBRegisterController.numDocumento}" />
+                <h:outputLabel value="#{mBRegisterController.result}" />
+                <h:commandButton value="Registrar" action="#{mBRegisterController.register}"/>
+                
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

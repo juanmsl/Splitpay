@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://server.splitpay.com:8080/WSSplitpay/WSSplitpay?WSDL" uri="wsdl/server.splitpay.com_8080/WSSplitpay/WSSplitpay.wsdl"/>
+    <system systemId="http://server.splitpay.com:8080/WSSplitpay/WSSplitpay?xsd=1" uri="wsdl/server.splitpay.com_8080/WSSplitpay/WSSplitpay.xsd_1.xsd"/>
+</catalog>
