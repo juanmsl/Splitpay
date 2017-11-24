@@ -35,19 +35,15 @@ import javax.xml.ws.WebServiceRef;
 @SessionScoped
 public class MBHomeController implements Serializable {
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/server.splitpay.com_8080/WSSplitpay/WSSplitpay.wsdl")
-    private WSSplitpay_Service service;
-
     private String nombreUsuario;
-    private List <String> gruposSeleccionados;
+    private List<String> gruposSeleccionados;
     private List<SelectItem> listaGrupos;
     private String groupname;
     private Grupo grupo;
-    
+
     @Inject
     MBIndexController index;
-    
-    
+
     public MBHomeController() {
         gruposSeleccionados = new ArrayList<>();
     }
@@ -59,8 +55,6 @@ public class MBHomeController implements Serializable {
     public void setGrupos(List<String> grupos) {
         this.gruposSeleccionados = grupos;
     }
-
-      
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -82,21 +76,12 @@ public class MBHomeController implements Serializable {
         return listaGrupos;
     }
 
-    
     public String getGroupname() {
         return groupname;
     }
 
     public void setGroupname(String groupname) {
         this.groupname = groupname;
-    }
-
-    public WSSplitpay_Service getService() {
-        return service;
-    }
-
-    public void setService(WSSplitpay_Service service) {
-        this.service = service;
     }
 
     public List<String> getGruposSeleccionados() {
@@ -122,52 +107,45 @@ public class MBHomeController implements Serializable {
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
-    
-    
 
     public void preRenderView() {
         List<Usuariogrupo> groups = getGroups(index.getUser());
         listaGrupos = new ArrayList<>();
         for (Usuariogrupo group : groups) {
-            if(group.getUsuario() != null) {
-                System.out.println(group.getUsuario());
+            if (group.getGrupo()!= null) {
                 String groupName = group.getGrupo().getNombre();
                 listaGrupos.add(new SelectItem(groupName));
             }
         }
     }
-    
-    public String createGroup(){
-        System.out.println(getGroupname());
+
+    public String createGroup() {
         Grupo grupo = new Grupo();
         grupo.setNombre(getGroupname());
         List<Usuario> lider = new ArrayList<>();
         lider.add(index.getUser());
         grupo = createGroup(grupo);
-        if(grupo != null) {
-            System.out.println("Creado");
-            if(addMembers(lider, grupo, RolTypes.LIDER)) {
-                //return "home";
+        if (grupo != null) {
+            setGrupo(grupo);
+            if (addMembers(lider, grupo, RolTypes.LIDER)) {
+                return "grupos";
             }
         }
         setGroupname("");
         return "home";
     }
-    
-    public String mostrarGrupo(){        
+
+    public String mostrarGrupo() {
         String grupoSeleccionado = "";
         List<Usuariogrupo> groups = getGroups(index.getUser());
-        if(gruposSeleccionados.size()!=0){
-            for(String group : gruposSeleccionados){
-                grupoSeleccionado = group;
+        if (!gruposSeleccionados.isEmpty()) {
+            grupoSeleccionado = gruposSeleccionados.get(0);
+            for(Usuariogrupo group : groups) {
+                if(group.getGrupo().getNombre().equals(grupoSeleccionado)) {
+                    grupo = group.getGrupo();
+                    return "grupos";
+                }
             }
-            for (Usuariogrupo group : groups) {            
-            String groupName = group.getGrupo().getNombre();
-            if(grupoSeleccionado.equals(groupName)){
-                grupo = group.getGrupo();
-                return "grupos";
-              }            
-            }        
         }
         return "home";
     }
@@ -189,8 +167,5 @@ public class MBHomeController implements Serializable {
         WSSplitpay port = service.getWSSplitpayPort();
         return port.addMembers(members, grupo, type);
     }
-    
-    
-    
-     
+
 }

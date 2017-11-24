@@ -22,6 +22,14 @@
 
 <xs:element name="getGroupsResponse" type="tns:getGroupsResponse"/>
 
+<xs:element name="getUsersGroup" type="tns:getUsersGroup"/>
+
+<xs:element name="getUsersGroupResponse" type="tns:getUsersGroupResponse"/>
+
+<xs:element name="getUsersNotInGroup" type="tns:getUsersNotInGroup"/>
+
+<xs:element name="getUsersNotInGroupResponse" type="tns:getUsersNotInGroupResponse"/>
+
 <xs:element name="grupo" type="tns:grupo"/>
 
 <xs:element name="loginUser" type="tns:loginUser"/>
@@ -162,18 +170,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="finalDebtResolution">
-<xs:sequence>
-<xs:element name="group" type="tns:grupo" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="finalDebtResolutionResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="doPayment">
 <xs:sequence>
 <xs:element name="payment" type="tns:pago" minOccurs="0"/>
@@ -195,6 +191,42 @@
 <xs:complexType name="doPaymentResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="finalDebtResolution">
+<xs:sequence>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="finalDebtResolutionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsersGroup">
+<xs:sequence>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsersGroupResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuariogrupo" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsersNotInGroup">
+<xs:sequence>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsersNotInGroupResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuario" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
