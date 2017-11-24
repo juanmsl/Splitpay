@@ -11,19 +11,32 @@
     </h:head>
     <h:body>
         <f:view>
-            <h:form>
-                <p>Nombre</p>
-                <h:inputText value="#{mBRegisterController.nombre}" />
-                <p>Email</p>
-                <h:inputText value="#{mBRegisterController.email}" />
-                <p>Contraseña</p>
-                <h:inputText value="#{mBRegisterController.contrasena}" />
-                <p>Tipo documento</p>
-                <h:inputText value="#{mBRegisterController.tipoDocumento}" />
-                <p>Número de documento</p>
-                <h:inputText value="#{mBRegisterController.numDocumento}" />
-                <h:outputLabel value="#{mBRegisterController.result}" />
-                <h:commandButton value="Registrar" action="#{mBRegisterController.register}"/>
+            <h:form class="form">
+                <h1><legend>Registrarse</legend></h1>
+                <fieldset>
+                    <h:inputText class="input" id="name" value="#{mBRegisterController.nombre}" />
+                    <label for="name">Nombre</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="email" value="#{mBRegisterController.email}" />
+                    <label for="email">Email</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="pasword" value="#{mBRegisterController.contrasena}" />
+                    <label for="pasword">Contraseña</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="tipe" value="#{mBRegisterController.tipoDocumento}" />
+                    <label for="tipe">Tipo documento</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="num" value="#{mBRegisterController.numDocumento}" />
+                    <label for="num">Número de documento</label>
+                </fieldset>
+                
+                <legend>#{mBRegisterController.result}</legend>
+                <h:commandButton class="button" value="Registrar" action="#{mBRegisterController.register}"/>
+                <h:commandLink class="textmsg" value="Iniciar sesión" action="#{mBRegisterController.login}"/>
                 
             </h:form>
         </f:view>

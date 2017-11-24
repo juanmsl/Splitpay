@@ -90,11 +90,16 @@ public class MBRegisterController implements Serializable {
         user.setNumdocumento(this.getNumDocumento());
         if(registrarU(user)!= null){
             this.setResult("Registrado");
+            return "index";
         }else{
             this.setResult("Errror de registro");
         }
         
-        return "home";
+        return "register";
+    }
+    
+    public String login() {
+        return "index";
     }
     
     private Usuario registrarU (Usuario user){

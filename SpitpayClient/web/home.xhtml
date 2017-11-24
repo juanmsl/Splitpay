@@ -13,14 +13,14 @@
         <link rel="stylesheet" href="css/styles.css"></link>
     </h:head>
     <h:body>
+        <nav>
+            <p>#{mBHomeController.index.user.nombre}</p>
+        </nav>
+        <h3>
+            Grupos activos
+        </h3>
         <f:view>
             <h:form>
-                <h1>Hola</h1>
-                <h:outputLabel value = "#{mBHomeController.index.user.nombre}"/>
-                <h3>
-                    Grupos activos
-                </h3>
-                
                 <h:selectManyListbox value ="#{mBHomeController.grupos}">
                     <f:selectItems value="#{mBHomeController.nombreGrupo}"/>
                 </h:selectManyListbox>

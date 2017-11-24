@@ -64,9 +64,9 @@ public class MBIndexController implements Serializable {
         usuario.setEmail(this.getEmail());
         usuario.setContrasena(this.getPassword());
         usuario = loginUser(usuario);
+        setResult("");
         if(usuario != null) {
             this.setUser(usuario);
-            this.setResult("Usuario valido");
             return "home";
         } else {
             this.setResult("Usuario invalido");
