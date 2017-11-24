@@ -7,20 +7,26 @@ package controllers;
 
 import entities.Deuda;
 import entities.Notificacion;
-import entities.Usuario;
 import entities.Usuariodeuda;
 import integration.facades.DeudaFacadeRemote;
 import integration.facades.NotificacionFacadeRemote;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Stateless
 @LocalBean
 public class ControllerPostingBill {
 
+    @PersistenceContext(unitName = "SplitpayServerPU")
+    private EntityManager em;
+    
     @EJB
     private NotificacionFacadeRemote notificacionFacade;
 
@@ -30,8 +36,17 @@ public class ControllerPostingBill {
     public boolean postingBill(Deuda debt) {
         debt = calculateAmount(debt);
         deudaFacade.create(debt);
-        notify(debt.getUsuariodeudaList());
-        return true;
+        return notify(getUsuariosDeuda(debt.getId()), "Se ha añadido una nueva deuda al grupo " + debt.getNombre());
+    }
+    
+    private List<Usuariodeuda> getUsuariosDeuda(BigDecimal id) {
+        Query query = em.createNamedQuery("Usuariodeuda.findByDeudaId", Usuariodeuda.class);
+        try {
+            query.setParameter("deudaId", id);
+            return (List<Usuariodeuda>)query.getResultList();
+        } catch(Exception e) {
+            return null;
+        }
     }
     
     private Deuda calculateAmount(Deuda debt) {
@@ -42,12 +57,14 @@ public class ControllerPostingBill {
         return debt;
     }
     
-    private void notify(List<Usuariodeuda> usuarios) {
+    private boolean notify(List<Usuariodeuda> usuarios, String text) {
         for(Usuariodeuda usuario : usuarios) {
             Notificacion notificacion = new Notificacion();
             notificacion.setUsuarioId(usuario.getUsuario());
+            notificacion.setTexto(text);
             notificacionFacade.create(notificacion);
         }
+        return true;
     }
     
 }

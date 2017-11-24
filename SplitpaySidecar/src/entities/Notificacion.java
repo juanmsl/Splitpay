@@ -10,11 +10,13 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -38,6 +40,8 @@ public class Notificacion implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @GeneratedValue(generator = "NOTIFICATION_ID")
+    @SequenceGenerator(name="NOTIFICATION_ID",sequenceName="NOTIFICACION_ID_SEQ", allocationSize=1)
     @Column(name = "ID")
     private BigDecimal id;
     @Size(max = 250)
