@@ -32,7 +32,7 @@ public class UserController {
         }
     }
     
-    public List<Usuariogrupo> findGoupByUser(BigDecimal id) {
+    public List<Usuariogrupo> findGroupsByUser(BigDecimal id) {
         Query query = em.createNamedQuery("Usuariogrupo.findByUsuarioId", Usuariogrupo.class);
         try {
             query.setParameter("usuarioId", id);
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     public List<Usuariogrupo> getGroups(Usuario user) {
-        List<Usuariogrupo> groups = findGoupByUser(user.getId());
+        List<Usuariogrupo> groups = findGroupsByUser(user.getId());
         return groups;
     }
     

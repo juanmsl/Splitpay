@@ -23,6 +23,7 @@ public class SplitpayFacadeSOAP {
 
     @EJB
     private UserController usersController;
+    
 
     @EJB
     private ControllerFinalDebt controllerFinalDebt;
@@ -60,8 +61,16 @@ public class SplitpayFacadeSOAP {
     public boolean addMembers(List<Usuario> members, Grupo grupo, RolTypes type) {
         return groupController.addMember(members, grupo, type);
     }
-
+    
     public List<Usuariogrupo> getGroups(Usuario user) {
         return usersController.getGroups(user);
+    }
+    
+    public List<Usuariogrupo> getUsersGroup(Grupo grupo) {
+        return groupController.getUsersGroup(grupo);
+    }
+    
+    public List<Usuario> getUsersNotInGroup(Grupo grupo) {
+        return groupController.getUsersNotInGroup(grupo);
     }
 }

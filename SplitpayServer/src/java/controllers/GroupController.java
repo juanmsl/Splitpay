@@ -11,16 +11,42 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Stateless
 @LocalBean
 public class GroupController {
 
+    @PersistenceContext(unitName = "SplitpayServerPU")
+    private EntityManager em;
+    
     @EJB
     private UsuariogrupoFacadeRemote usuariogrupoFacade;
 
     @EJB
     private GrupoFacadeRemote grupoFacade;
+    
+    public List<Usuariogrupo> findUsersByGroup(BigDecimal id) {
+        Query query = em.createNamedQuery("Usuariogrupo.findByGrupoId", Usuariogrupo.class);
+        try {
+            query.setParameter("grupoId", id);
+            return (List<Usuariogrupo>)query.getResultList();
+        } catch(Exception e) {
+            return null;
+        }
+    }
+    
+    public List<Usuario> findUsersNotInGroup(BigDecimal id) {
+        Query query = em.createNativeQuery("SELECT * FROM usuario where id not in (SELECT usuario_id FROM Usuariogrupo WHERE grupo_id = ?)", Usuario.class);
+        try {
+            query.setParameter(1, id);
+            return (List<Usuario>)query.getResultList();
+        } catch(Exception e) {
+            return null;
+        }
+    }
 
     public Grupo createGroup(Grupo grupo) {
         grupoFacade.create(grupo);
@@ -46,5 +72,15 @@ public class GroupController {
             usuariogrupoFacade.create(usuariogrupo);
         }
         return true;
+    }
+
+    public List<Usuariogrupo> getUsersGroup(Grupo grupo) {
+        List<Usuariogrupo> groups = findUsersByGroup(grupo.getId());
+        return groups;
+    }
+    
+    public List<Usuario> getUsersNotInGroup(Grupo grupo) {
+        List<Usuario> groups = findUsersNotInGroup(grupo.getId());
+        return groups;
     }
 }

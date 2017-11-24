@@ -71,4 +71,14 @@ public class WSSplitpay {
         return ejbRef.getGroups(user);
     }
     
+    @WebMethod(operationName = "getUsersGroup")
+    public List<Usuariogrupo> getUsersGroup(@WebParam(name = "group") Grupo group) {
+        return ejbRef.getUsersGroup(group);
+    }
+    
+    @WebMethod(operationName = "getUsersNotInGroup")
+    public List<Usuario> getUsersNotInGroup(@WebParam(name = "group") Grupo group) {
+        return ejbRef.getUsersNotInGroup(group);
+    }
+    
 }
