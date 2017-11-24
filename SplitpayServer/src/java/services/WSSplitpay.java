@@ -9,24 +9,26 @@ import entities.Deuda;
 import entities.Grupo;
 import entities.Pago;
 import entities.Usuario;
-import facades.SplitpayFacadeSOAPRemote;
+import entities.Usuariogrupo;
+import enums.RolTypes;
+import facades.SplitpayFacadeSOAP;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.jws.WebService;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
 
 /**
  *
- * @author sala_a
+ * @author juanm
  */
 @WebService(serviceName = "WSSplitpay")
 @Stateless()
 public class WSSplitpay {
 
     @EJB
-    private SplitpayFacadeSOAPRemote ejbRef;// Add business logic below. (Right-click in editor and choose
+    private SplitpayFacadeSOAP ejbRef;// Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Web Service Operation")
 
     @WebMethod(operationName = "registerUser")
@@ -60,8 +62,13 @@ public class WSSplitpay {
     }
 
     @WebMethod(operationName = "addMembers")
-    public boolean addMembers(@WebParam(name = "members") List<Usuario> members) {
-        return ejbRef.addMembers(members);
+    public boolean addMembers(@WebParam(name = "members") List<Usuario> members, @WebParam(name = "grupo") Grupo grupo, @WebParam(name = "type") RolTypes type) {
+        return ejbRef.addMembers(members, grupo, type);
+    }
+
+    @WebMethod(operationName = "getGroups")
+    public List<Usuariogrupo> getGroups(@WebParam(name = "user") Usuario user) {
+        return ejbRef.getGroups(user);
     }
     
 }

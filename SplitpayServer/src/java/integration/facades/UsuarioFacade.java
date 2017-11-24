@@ -9,11 +9,10 @@ import entities.Usuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
- * @author sala_a
+ * @author juanm
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> implements integration.facades.UsuarioFacadeRemote {
@@ -29,34 +28,5 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements integratio
     public UsuarioFacade() {
         super(Usuario.class);
     }
-
-    @Override
-    public Usuario findByEmail(String email) {
-        Query query = em.createNamedQuery("Usuario.findByEmail", Usuario.class);
-        try {
-            query.setParameter("email", email);
-            return (Usuario)query.getSingleResult();
-        } catch(Exception e) {
-            return null;
-        }
-    }
-
-    @Override
-    public Usuario login(String email, String password) {
-        Usuario usuario = findByEmail(email);
-        if(usuario != null) {
-            if(usuario.getContrasena().equals(password)) {
-                return usuario;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Usuario register(Usuario user) {
-        create(user);
-        return findByEmail(user.getEmail());
-    }
-    
     
 }

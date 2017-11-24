@@ -8,6 +8,7 @@
     <class>entities.Pago</class>
     <class>entities.Usuario</class>
     <class>entities.Usuariodeuda</class>
+    <class>entities.Usuariogrupo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

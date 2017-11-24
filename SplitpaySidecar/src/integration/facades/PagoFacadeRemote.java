@@ -11,7 +11,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author sala_a
+ * @author juanm
  */
 @Remote
 public interface PagoFacadeRemote {

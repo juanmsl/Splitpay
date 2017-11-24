@@ -9,16 +9,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sala_a
+ * @author juanm
  */
 @Entity
 @Table(name = "GRUPO")
@@ -43,19 +42,15 @@ public class Grupo implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
+    @GeneratedValue(generator = "GROUP_ID")
+    @SequenceGenerator(name="GROUP_ID",sequenceName="GRUPO_ID_SEQ", allocationSize=1)
     @Column(name = "ID")
     private BigDecimal id;
     @Size(max = 100)
     @Column(name = "NOMBRE")
     private String nombre;
-    @JoinTable(name = "USUARIOGRUPO", joinColumns = {
-        @JoinColumn(name = "GRUPO_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID")})
-    @ManyToMany
-    private List<Usuario> usuarioList;
-    @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID")
-    @ManyToOne
-    private Usuario usuarioId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupo")
+    private List<Usuariogrupo> usuariogrupoList;
     @OneToMany(mappedBy = "grupoId")
     private List<Deuda> deudaList;
 
@@ -83,20 +78,12 @@ public class Grupo implements Serializable {
     }
 
     @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public List<Usuariogrupo> getUsuariogrupoList() {
+        return usuariogrupoList;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
-    }
-
-    public Usuario getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setUsuariogrupoList(List<Usuariogrupo> usuariogrupoList) {
+        this.usuariogrupoList = usuariogrupoList;
     }
 
     @XmlTransient

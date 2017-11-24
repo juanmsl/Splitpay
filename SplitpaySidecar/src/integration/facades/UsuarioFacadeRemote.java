@@ -11,7 +11,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author sala_a
+ * @author juanm
  */
 @Remote
 public interface UsuarioFacadeRemote {
@@ -29,11 +29,5 @@ public interface UsuarioFacadeRemote {
     List<Usuario> findRange(int[] range);
 
     int count();
-
-    Usuario findByEmail(String email);
-
-    Usuario login(String email, String password);
-
-    Usuario register(Usuario user);
     
 }

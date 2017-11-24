@@ -13,15 +13,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sala_a
+ * @author juanm
  */
 @Entity
 @Table(name = "USUARIO")
@@ -69,10 +66,8 @@ public class Usuario implements Serializable {
     @Size(max = 100)
     @Column(name = "NUMDOCUMENTO")
     private String numdocumento;
-    @ManyToMany(mappedBy = "usuarioList")
-    private List<Grupo> grupoList;
-    @OneToMany(mappedBy = "usuarioId")
-    private List<Grupo> grupoList1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Usuariogrupo> usuariogrupoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Usuariodeuda> usuariodeudaList;
     @OneToMany(mappedBy = "usuarioId")
@@ -138,21 +133,12 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public List<Grupo> getGrupoList() {
-        return grupoList;
+    public List<Usuariogrupo> getUsuariogrupoList() {
+        return usuariogrupoList;
     }
 
-    public void setGrupoList(List<Grupo> grupoList) {
-        this.grupoList = grupoList;
-    }
-
-    @XmlTransient
-    public List<Grupo> getGrupoList1() {
-        return grupoList1;
-    }
-
-    public void setGrupoList1(List<Grupo> grupoList1) {
-        this.grupoList1 = grupoList1;
+    public void setUsuariogrupoList(List<Usuariogrupo> usuariogrupoList) {
+        this.usuariogrupoList = usuariogrupoList;
     }
 
     @XmlTransient
@@ -215,5 +201,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "entities.Usuario[ id=" + id + " ]";
     }
-
+    
 }
