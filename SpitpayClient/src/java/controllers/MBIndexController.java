@@ -56,7 +56,6 @@ public class MBIndexController implements Serializable {
     public void setUser(Usuario user) {
         this.user = user;
     }
-    
   
     
     public String login(){

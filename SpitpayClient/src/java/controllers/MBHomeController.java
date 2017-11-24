@@ -36,7 +36,7 @@ import javax.xml.ws.WebServiceRef;
 public class MBHomeController implements Serializable {
 
     private String nombreUsuario;
-    private List<String> gruposSeleccionados;
+    private String gruposSeleccionados;
     private List<SelectItem> listaGrupos;
     private String groupname;
     private Grupo grupo;
@@ -45,15 +45,14 @@ public class MBHomeController implements Serializable {
     MBIndexController index;
 
     public MBHomeController() {
-        gruposSeleccionados = new ArrayList<>();
     }
 
-    public List<String> getGrupos() {
+    public String getGruposSeleccionados() {
         return gruposSeleccionados;
     }
 
-    public void setGrupos(List<String> grupos) {
-        this.gruposSeleccionados = grupos;
+    public void setGruposSeleccionados(String gruposSeleccionados) {
+        this.gruposSeleccionados = gruposSeleccionados;
     }
 
     public String getNombreUsuario() {
@@ -82,14 +81,6 @@ public class MBHomeController implements Serializable {
 
     public void setGroupname(String groupname) {
         this.groupname = groupname;
-    }
-
-    public List<String> getGruposSeleccionados() {
-        return gruposSeleccionados;
-    }
-
-    public void setGruposSeleccionados(List<String> gruposSeleccionados) {
-        this.gruposSeleccionados = gruposSeleccionados;
     }
 
     public List<SelectItem> getListaGrupos() {
@@ -136,15 +127,11 @@ public class MBHomeController implements Serializable {
     }
 
     public String mostrarGrupo() {
-        String grupoSeleccionado = "";
         List<Usuariogrupo> groups = getGroups(index.getUser());
-        if (!gruposSeleccionados.isEmpty()) {
-            grupoSeleccionado = gruposSeleccionados.get(0);
-            for(Usuariogrupo group : groups) {
-                if(group.getGrupo().getNombre().equals(grupoSeleccionado)) {
-                    grupo = group.getGrupo();
-                    return "grupos";
-                }
+        for(Usuariogrupo group : groups) {
+            if(group.getGrupo().getNombre().equals(getGruposSeleccionados())) {
+                grupo = group.getGrupo();
+                return "grupos";
             }
         }
         return "home";

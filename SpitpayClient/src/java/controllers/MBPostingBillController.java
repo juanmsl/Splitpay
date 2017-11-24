@@ -6,6 +6,11 @@
 package controllers;
 
 import integration.splitpaysoap.Deuda;
+import integration.splitpaysoap.Grupo;
+import integration.splitpaysoap.Usuario;
+import integration.splitpaysoap.Usuariogrupo;
+import integration.splitpaysoap.WSSplitpay;
+import integration.splitpaysoap.WSSplitpay_Service;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -17,9 +22,12 @@ import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.ws.WebServiceRef;
 
 /**
  *
@@ -28,12 +36,20 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @Named(value = "mBPostingBillController")
 @SessionScoped
 public class MBPostingBillController implements Serializable{
+
+    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/server.splitpay.com_8080/WSSplitpay/WSSplitpay.wsdl")
+    private WSSplitpay_Service service;
     
     private String nombreDeuda;
     private BigInteger monto;
     private Date fecha;
-    private String nombreGrupo = "Integrantes";
-    private List<String> integrantes = new ArrayList<>();
+    private List <String> usuariosGrupoSeleccionados;
+    private List<SelectItem> listaUsuariosGrupo;
+    private Usuario usuario;
+    private Grupo grupo;
+    
+    @Inject
+    MBGroupController grupos;
     
     public MBPostingBillController() {
     }
@@ -62,25 +78,60 @@ public class MBPostingBillController implements Serializable{
         this.fecha = fecha;
     }
 
-    public String getNombreGrupo() {
-        return nombreGrupo;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setNombreGrupo(String nombreGrupo) {
-        this.nombreGrupo = nombreGrupo;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public List<String> getIntegrantes() {
-        return integrantes;
+    public Grupo getGrupo() {
+        return grupo;
     }
 
-    public void setIntegrantes(List<String> integrantes) {
-        this.integrantes = integrantes;
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public List<String> getUsuariosGrupoSeleccionados() {
+        return usuariosGrupoSeleccionados;
+    }
+
+    public void setUsuariosGrupoSeleccionados(List<String> usuariosGrupoSeleccionados) {
+        this.usuariosGrupoSeleccionados = usuariosGrupoSeleccionados;
+    }
+
+    public List<SelectItem> getListaUsuariosGrupo() {
+        return listaUsuariosGrupo;
+    }
+
+    public void setListaUsuariosGrupo(List<SelectItem> listaUsuariosGrupo) {
+        this.listaUsuariosGrupo = listaUsuariosGrupo;
+    }
+
+    public MBGroupController getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(MBGroupController grupos) {
+        this.grupos = grupos;
+    }
+    
+    public void preRenderView() {
+        listaUsuariosGrupo = new ArrayList<>();
+        List<Usuariogrupo> groups = getUsersGroup(grupos.getGrupo());
+        for (Usuariogrupo group : groups) {
+            if(group.getUsuario() != null) {
+                String userName = group.getUsuario().getNombre();
+                listaUsuariosGrupo.add(new SelectItem(userName));
+            }
+        }
+        
     }
     
     public String posting(){
-        Deuda deuda = new Deuda();     
-
+        Deuda deuda = new Deuda();
         GregorianCalendar c = new GregorianCalendar();
         c.setTime(this.fecha);
         XMLGregorianCalendar date2;
@@ -96,4 +147,12 @@ public class MBPostingBillController implements Serializable{
         
         
     }
+
+    private List<Usuariogrupo> getUsersGroup(Grupo group) {
+        WSSplitpay_Service service = new WSSplitpay_Service();
+        WSSplitpay port = service.getWSSplitpayPort();
+        return port.getUsersGroup(group);
+    }
+    
+    
 }

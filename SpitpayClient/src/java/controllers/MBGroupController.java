@@ -39,11 +39,29 @@ public class MBGroupController implements Serializable{
     private List<SelectItem> listaUsuariosGrupo;
     private List <String> usuariosSeleccionados;
     private List<SelectItem> listaUsuarios;
+    private Grupo grupo;
     
     
     public MBGroupController() {
+        grupo = home.getGrupo();
     }
 
+    public WSSplitpay_Service getService() {
+        return service;
+    }
+
+    public void setService(WSSplitpay_Service service) {
+        this.service = service;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+    
     public MBHomeController getHome() {
         return home;
     }
@@ -112,6 +130,10 @@ public class MBGroupController implements Serializable{
         }
         addMembers(usuariosParaAgregar, home.getGrupo(), RolTypes.MIEMBRO);
         return "grupos";
+    }
+    
+    public String agregarDeuda() {
+        return "postingBill";
     }
 
     private List<Usuariogrupo> getUsersGroup(Grupo group) {

@@ -16,19 +16,17 @@
         <nav>
             <p>#{mBHomeController.index.user.nombre}</p>
         </nav>
-        <h3>
-            Grupos activos
-        </h3>
         <f:view>
-            <h:form>
-                <h:selectManyListbox value ="#{mBHomeController.grupos}">
+            <h:form class="form">
+                <h3>Grupos activos</h3>
+                <h:selectOneMenu value ="#{mBHomeController.gruposSeleccionados}">
                     <f:selectItems value="#{mBHomeController.nombreGrupo}"/>
-                </h:selectManyListbox>
+                </h:selectOneMenu>
                 <h:commandButton value="Mostrar Grupo" action="#{mBHomeController.mostrarGrupo}"/>
             </h:form>
         </f:view>
         <f:view>
-            <h:form>
+            <h:form class="form">
                 <h:inputText value="#{mBHomeController.groupname}"/>
                 <h:commandButton value="Crear grupo" action="#{mBHomeController.createGroup}"/>
             </h:form>

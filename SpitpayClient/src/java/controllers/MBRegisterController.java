@@ -92,7 +92,7 @@ public class MBRegisterController implements Serializable {
             this.setResult("Registrado");
             return "index";
         }else{
-            this.setResult("Errror de registro");
+            this.setResult("Error de registro");
         }
         
         return "register";
