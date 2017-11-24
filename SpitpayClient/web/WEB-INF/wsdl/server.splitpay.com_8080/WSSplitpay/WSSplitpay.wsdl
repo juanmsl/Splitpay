@@ -4,17 +4,17 @@
 <xsd:import namespace="http://services/" schemaLocation="http://server.splitpay.com:8080/WSSplitpay/WSSplitpay?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="doPayment">
-<part name="parameters" element="tns:doPayment"/>
+<message name="createGroup">
+<part name="parameters" element="tns:createGroup"/>
 </message>
-<message name="doPaymentResponse">
-<part name="parameters" element="tns:doPaymentResponse"/>
+<message name="createGroupResponse">
+<part name="parameters" element="tns:createGroupResponse"/>
 </message>
-<message name="loginUser">
-<part name="parameters" element="tns:loginUser"/>
+<message name="finalDebtResolution">
+<part name="parameters" element="tns:finalDebtResolution"/>
 </message>
-<message name="loginUserResponse">
-<part name="parameters" element="tns:loginUserResponse"/>
+<message name="finalDebtResolutionResponse">
+<part name="parameters" element="tns:finalDebtResolutionResponse"/>
 </message>
 <message name="postingBill">
 <part name="parameters" element="tns:postingBill"/>
@@ -28,14 +28,38 @@
 <message name="registerUserResponse">
 <part name="parameters" element="tns:registerUserResponse"/>
 </message>
+<message name="loginUser">
+<part name="parameters" element="tns:loginUser"/>
+</message>
+<message name="loginUserResponse">
+<part name="parameters" element="tns:loginUserResponse"/>
+</message>
+<message name="doPayment">
+<part name="parameters" element="tns:doPayment"/>
+</message>
+<message name="doPaymentResponse">
+<part name="parameters" element="tns:doPaymentResponse"/>
+</message>
+<message name="addMembers">
+<part name="parameters" element="tns:addMembers"/>
+</message>
+<message name="addMembersResponse">
+<part name="parameters" element="tns:addMembersResponse"/>
+</message>
+<message name="getGroups">
+<part name="parameters" element="tns:getGroups"/>
+</message>
+<message name="getGroupsResponse">
+<part name="parameters" element="tns:getGroupsResponse"/>
+</message>
 <portType name="WSSplitpay">
-<operation name="doPayment">
-<input wsam:Action="http://services/WSSplitpay/doPaymentRequest" message="tns:doPayment"/>
-<output wsam:Action="http://services/WSSplitpay/doPaymentResponse" message="tns:doPaymentResponse"/>
+<operation name="createGroup">
+<input wsam:Action="http://services/WSSplitpay/createGroupRequest" message="tns:createGroup"/>
+<output wsam:Action="http://services/WSSplitpay/createGroupResponse" message="tns:createGroupResponse"/>
 </operation>
-<operation name="loginUser">
-<input wsam:Action="http://services/WSSplitpay/loginUserRequest" message="tns:loginUser"/>
-<output wsam:Action="http://services/WSSplitpay/loginUserResponse" message="tns:loginUserResponse"/>
+<operation name="finalDebtResolution">
+<input wsam:Action="http://services/WSSplitpay/finalDebtResolutionRequest" message="tns:finalDebtResolution"/>
+<output wsam:Action="http://services/WSSplitpay/finalDebtResolutionResponse" message="tns:finalDebtResolutionResponse"/>
 </operation>
 <operation name="postingBill">
 <input wsam:Action="http://services/WSSplitpay/postingBillRequest" message="tns:postingBill"/>
@@ -45,10 +69,26 @@
 <input wsam:Action="http://services/WSSplitpay/registerUserRequest" message="tns:registerUser"/>
 <output wsam:Action="http://services/WSSplitpay/registerUserResponse" message="tns:registerUserResponse"/>
 </operation>
+<operation name="loginUser">
+<input wsam:Action="http://services/WSSplitpay/loginUserRequest" message="tns:loginUser"/>
+<output wsam:Action="http://services/WSSplitpay/loginUserResponse" message="tns:loginUserResponse"/>
+</operation>
+<operation name="doPayment">
+<input wsam:Action="http://services/WSSplitpay/doPaymentRequest" message="tns:doPayment"/>
+<output wsam:Action="http://services/WSSplitpay/doPaymentResponse" message="tns:doPaymentResponse"/>
+</operation>
+<operation name="addMembers">
+<input wsam:Action="http://services/WSSplitpay/addMembersRequest" message="tns:addMembers"/>
+<output wsam:Action="http://services/WSSplitpay/addMembersResponse" message="tns:addMembersResponse"/>
+</operation>
+<operation name="getGroups">
+<input wsam:Action="http://services/WSSplitpay/getGroupsRequest" message="tns:getGroups"/>
+<output wsam:Action="http://services/WSSplitpay/getGroupsResponse" message="tns:getGroupsResponse"/>
+</operation>
 </portType>
 <binding name="WSSplitpayPortBinding" type="tns:WSSplitpay">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="doPayment">
+<operation name="createGroup">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -57,7 +97,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="loginUser">
+<operation name="finalDebtResolution">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -76,6 +116,42 @@
 </output>
 </operation>
 <operation name="registerUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="loginUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="doPayment">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="addMembers">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getGroups">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

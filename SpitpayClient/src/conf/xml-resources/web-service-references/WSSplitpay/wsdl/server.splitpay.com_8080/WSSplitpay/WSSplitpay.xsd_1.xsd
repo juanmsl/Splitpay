@@ -1,10 +1,26 @@
 <?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://services/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services/">
 
+<xs:element name="addMembers" type="tns:addMembers"/>
+
+<xs:element name="addMembersResponse" type="tns:addMembersResponse"/>
+
+<xs:element name="createGroup" type="tns:createGroup"/>
+
+<xs:element name="createGroupResponse" type="tns:createGroupResponse"/>
+
 <xs:element name="deuda" type="tns:deuda"/>
 
 <xs:element name="doPayment" type="tns:doPayment"/>
 
 <xs:element name="doPaymentResponse" type="tns:doPaymentResponse"/>
+
+<xs:element name="finalDebtResolution" type="tns:finalDebtResolution"/>
+
+<xs:element name="finalDebtResolutionResponse" type="tns:finalDebtResolutionResponse"/>
+
+<xs:element name="getGroups" type="tns:getGroups"/>
+
+<xs:element name="getGroupsResponse" type="tns:getGroupsResponse"/>
 
 <xs:element name="grupo" type="tns:grupo"/>
 
@@ -24,9 +40,13 @@
 
 <xs:element name="usuario" type="tns:usuario"/>
 
-<xs:complexType name="loginUser">
+<xs:element name="usuariogrupo" type="tns:usuariogrupo"/>
+
+<xs:complexType name="addMembers">
 <xs:sequence>
-<xs:element name="user" type="tns:usuario" minOccurs="0"/>
+<xs:element name="members" type="tns:usuario" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="grupo" type="tns:grupo" minOccurs="0"/>
+<xs:element name="type" type="tns:rolTypes" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -38,6 +58,37 @@
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
 <xs:element name="numdocumento" type="xs:string" minOccurs="0"/>
 <xs:element name="tipodocumento" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="grupo">
+<xs:sequence>
+<xs:element name="id" type="xs:decimal" minOccurs="0"/>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="addMembersResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createGroup">
+<xs:sequence>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createGroupResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="loginUser">
+<xs:sequence>
+<xs:element name="user" type="tns:usuario" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -65,17 +116,37 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="grupo">
-<xs:sequence>
-<xs:element name="id" type="xs:decimal" minOccurs="0"/>
-<xs:element name="nombre" type="xs:string" minOccurs="0"/>
-<xs:element name="usuarioId" type="tns:usuario" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="postingBillResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getGroups">
+<xs:sequence>
+<xs:element name="user" type="tns:usuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getGroupsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuariogrupo" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuariogrupo">
+<xs:sequence>
+<xs:element name="grupo" type="tns:grupo" minOccurs="0"/>
+<xs:element name="rol" type="xs:string" minOccurs="0"/>
+<xs:element name="usuario" type="tns:usuario" minOccurs="0"/>
+<xs:element name="usuariogrupoPK" type="tns:usuariogrupoPK" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="usuariogrupoPK">
+<xs:sequence>
+<xs:element name="grupoId" type="xs:integer" minOccurs="0"/>
+<xs:element name="usuarioId" type="xs:integer" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -88,6 +159,18 @@
 <xs:complexType name="registerUserResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:usuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="finalDebtResolution">
+<xs:sequence>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="finalDebtResolutionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -114,4 +197,11 @@
 <xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
+
+<xs:simpleType name="rolTypes">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Lider"/>
+<xs:enumeration value="Miembro"/>
+</xs:restriction>
+</xs:simpleType>
 </xs:schema>

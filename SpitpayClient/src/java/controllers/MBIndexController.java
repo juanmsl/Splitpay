@@ -7,6 +7,7 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import javax.xml.ws.WebServiceRef;
 
 /**
@@ -20,6 +21,7 @@ public class MBIndexController implements Serializable {
     private String email;
     private String password;
     private String result;
+    private Usuario user;
     
     public MBIndexController() {}
 
@@ -46,15 +48,28 @@ public class MBIndexController implements Serializable {
     public void setResult(String result) {
         this.result = result;
     }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+    
+  
     
     public String login(){
-        Usuario user = new Usuario();
-        user.setEmail(this.getEmail());
-        user.setContrasena(this.getPassword());
-        if(loginUser(user) != null) {
-            this.setResult("Super autenticado wey!!");
+        Usuario usuario = new Usuario();
+        usuario.setEmail(this.getEmail());
+        usuario.setContrasena(this.getPassword());
+        usuario = loginUser(usuario);
+        if(usuario != null) {
+            this.setUser(usuario);
+            this.setResult("Usuario valido");
+            return "home";
         } else {
-            this.setResult("Pailas, no existes");
+            this.setResult("Usuario invalido");
         }
         return "index";
     }
