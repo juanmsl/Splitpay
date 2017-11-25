@@ -1,0 +1,8 @@
+$ORIGIN splitpay.com
+
+; hosts
+webserver         IN      A       10.155.102.20
+server            IN      A       10.155.102.20
+supervigilancia   IN      A       10.155.102.20
+svnegocio         IN      A       10.155.102.20
+

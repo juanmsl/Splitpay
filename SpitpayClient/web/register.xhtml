@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"/>
+        <link rel="stylesheet" href="css/styles.css"></link>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form class="form">
+                <h1><legend>Registrarse</legend></h1>
+                <fieldset>
+                    <h:inputText class="input" id="name" value="#{mBRegisterController.nombre}" />
+                    <label class="label" for="name">Nombre</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="email" value="#{mBRegisterController.email}" />
+                    <label class="label" for="email">Email</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="pasword" value="#{mBRegisterController.contrasena}" />
+                    <label class="label" for="pasword">Contraseña</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="tipe" value="#{mBRegisterController.tipoDocumento}" />
+                    <label class="label" for="tipe">Tipo documento</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="num" value="#{mBRegisterController.numDocumento}" />
+                    <label class="label" for="num">Número de documento</label>
+                </fieldset>
+                
+                <legend>#{mBRegisterController.result}</legend>
+                <h:commandButton class="button" value="Registrar" action="#{mBRegisterController.register}"/>
+                <h:commandLink class="textmsg" value="Iniciar sesión" action="#{mBRegisterController.login}"/>
+                
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

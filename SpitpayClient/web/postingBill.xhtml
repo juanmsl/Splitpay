@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SplitPay</title>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"></meta>
+        <link rel="stylesheet" href="css/styles.css"></link>
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{mBPostingBillController.preRenderView}"/>
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h1><legend>Agregar deuda</legend></h1>
+        <f:view>
+            <h:form class ="form">
+                <fieldset>
+                    <h:inputText class="input" id="name" value="#{mBPostingBillController.nombreDeuda}" />
+                    <label class="label" for="name">Nombre de la deuda</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="cost" value="#{mBPostingBillController.monto}" />
+                    <label class="label" for="cost">Costo de la deuda</label>
+                </fieldset>
+                <h:selectManyCheckbox value ="#{mBPostingBillController.usuariosGrupoSeleccionados}">
+                    <f:selectItems value="#{mBPostingBillController.listaUsuariosGrupo}"/>
+                </h:selectManyCheckbox>
+                <h:commandButton class="button" value="Crear deuda" action="#{mBPostingBillController.posting}"/>
+            </h:form>
+        </f:view>
+        <br/>
+        <label>
+            #{mBPostingBillController.result}
+        </label>
+    </h:body>
+</html>

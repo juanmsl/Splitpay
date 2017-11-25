@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"></meta>
+        <link rel="stylesheet" href="css/styles.css"></link>
+    <h:head>
+        <title>Split Pay</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h:form class="form">
+                <h1><legend>Pago PayPal</legend></h1>
+                <h2><legend>#{mBPagoController.grupo.deuda.nombre}</legend></h2>
+                <h3><legend>Valor de la deuda $#{mBPagoController.grupo.deuda.costo}</legend></h3>
+                <fieldset>                
+                    <h:inputText class="input" id="Monto" value="#{mBPagoController.montoAPagar}" />
+                    <label class="label" for="Monto a pagar">Monto a pagar</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="concepto" required="required" value="#{mBPagoController.concepto}" />
+                    <label class="label" for="Concepto">Concepto</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="descripcion" required="required" value="#{mBPagoController.descripcion}" />
+                    <label class="label" for="Descripción">Descripción</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="usuarioPayPal" required="required" value="#{mBPagoController.usuarioPayPal}" />
+                    <label class="label" for="Usuario PayPal">Usuario PayPal</label>
+                </fieldset>
+                <fieldset>
+                    <h:inputText class="input" id="passwordPayPal" required="required" value="#{mBPagoController.passwordPaypal}" />
+                    <label class="label" for="Password PayPal">Password PayPal</label>
+                </fieldset>
+                <br/>
+                <h:commandButton value="Hacer pago" action="#{mBPagoController.pagar}"/>
+                <br/>
+                <label>
+                    #{mBPagoController.result}
+                </label>
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+
