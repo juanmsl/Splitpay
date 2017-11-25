@@ -14,14 +14,14 @@ import enums.RolTypes;
 import facades.SplitpayFacadeSOAP;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.jws.WebService;
 import javax.ejb.Stateless;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
 /**
  *
- * @author juanm
+ * @author sala_a
  */
 @WebService(serviceName = "WSSplitpay")
 @Stateless()
@@ -70,20 +70,25 @@ public class WSSplitpay {
     public List<Usuariogrupo> getGroups(@WebParam(name = "user") Usuario user) {
         return ejbRef.getGroups(user);
     }
-    
+
     @WebMethod(operationName = "getUsersGroup")
-    public List<Usuariogrupo> getUsersGroup(@WebParam(name = "group") Grupo group) {
-        return ejbRef.getUsersGroup(group);
+    public List<Usuariogrupo> getUsersGroup(@WebParam(name = "grupo") Grupo grupo) {
+        return ejbRef.getUsersGroup(grupo);
     }
-    
+
     @WebMethod(operationName = "getUsersNotInGroup")
-    public List<Usuario> getUsersNotInGroup(@WebParam(name = "group") Grupo group) {
-        return ejbRef.getUsersNotInGroup(group);
+    public List<Usuario> getUsersNotInGroup(@WebParam(name = "grupo") Grupo grupo) {
+        return ejbRef.getUsersNotInGroup(grupo);
     }
-    
+
     @WebMethod(operationName = "getDebtByGroup")
     public List<Deuda> getDebtByGroup(@WebParam(name = "group") Grupo group) {
         return ejbRef.getDebtByGroup(group);
+    }
+
+    @WebMethod(operationName = "getRol")
+    public String getRol(@WebParam(name = "group") Grupo group, @WebParam(name = "user") Usuario user) {
+        return ejbRef.getRol(group, user);
     }
     
 }
