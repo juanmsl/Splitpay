@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author juanm
+ * @author sala_a
  */
 @Entity
 @Table(name = "NOTIFICACION")
@@ -40,8 +40,8 @@ public class Notificacion implements Serializable {
     @Id
     @Basic(optional = false)
     @NotNull
-    @GeneratedValue(generator = "NOTIFICATION_ID")
-    @SequenceGenerator(name="NOTIFICATION_ID",sequenceName="NOTIFICACION_ID_SEQ", allocationSize=1)
+    @GeneratedValue(generator = "NOT_ID")
+    @SequenceGenerator(name="NOT_ID",sequenceName="NOTIFICACION_ID_SEQ", allocationSize=1)
     @Column(name = "ID")
     private BigDecimal id;
     @Size(max = 250)

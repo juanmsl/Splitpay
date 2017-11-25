@@ -1,5 +1,6 @@
 package controllers;
 
+import entities.Deuda;
 import entities.Grupo;
 import entities.Usuario;
 import entities.Usuariogrupo;
@@ -82,5 +83,26 @@ public class GroupController {
     public List<Usuario> getUsersNotInGroup(Grupo grupo) {
         List<Usuario> groups = findUsersNotInGroup(grupo.getId());
         return groups;
+    }
+
+    public List<Deuda> getDebtByGroup(BigDecimal id) {
+        Query query = em.createNativeQuery("select * from DEUDA where GRUPO_ID = ?", Deuda.class);
+        try {
+            query.setParameter(1, id);
+            return (List<Deuda>)query.getResultList();
+        } catch(Exception e) {
+            return null;
+        }
+    }
+
+    public String getRol(BigDecimal groupId, BigDecimal userId) {
+        Query query = em.createNativeQuery("select rol from USUARIOGRUPO where GRUPO_ID = ? and USUARIO_ID = ?", String.class);
+        try {
+            query.setParameter(1, groupId);
+            query.setParameter(2, userId);
+            return (String) query.getSingleResult();
+        } catch(Exception e) {
+            return null;
+        }
     }
 }

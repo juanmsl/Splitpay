@@ -42,8 +42,8 @@ public class WSSplitpay {
     }
 
     @WebMethod(operationName = "postingBill")
-    public boolean postingBill(@WebParam(name = "debt") Deuda debt) {
-        return ejbRef.postingBill(debt);
+    public boolean postingBill(@WebParam(name = "debt") Deuda debt, @WebParam(name = "users") List<Usuario> users) {
+        return ejbRef.postingBill(debt, users);
     }
 
     @WebMethod(operationName = "doPayment")
@@ -79,6 +79,11 @@ public class WSSplitpay {
     @WebMethod(operationName = "getUsersNotInGroup")
     public List<Usuario> getUsersNotInGroup(@WebParam(name = "group") Grupo group) {
         return ejbRef.getUsersNotInGroup(group);
+    }
+    
+    @WebMethod(operationName = "getDebtByGroup")
+    public List<Deuda> getDebtByGroup(@WebParam(name = "group") Grupo group) {
+        return ejbRef.getDebtByGroup(group);
     }
     
 }

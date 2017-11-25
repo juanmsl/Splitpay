@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author juanm
+ * @author sala_a
  */
 @Entity
 @Table(name = "DEUDA")
@@ -42,8 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Deuda.findById", query = "SELECT d FROM Deuda d WHERE d.id = :id")
     , @NamedQuery(name = "Deuda.findByNombre", query = "SELECT d FROM Deuda d WHERE d.nombre = :nombre")
     , @NamedQuery(name = "Deuda.findByCosto", query = "SELECT d FROM Deuda d WHERE d.costo = :costo")
-    , @NamedQuery(name = "Deuda.findByFecha", query = "SELECT d FROM Deuda d WHERE d.fecha = :fecha")
-    , @NamedQuery(name = "Deuda.findByDocumentoId", query = "SELECT d FROM Deuda d WHERE d.documentoId = :documentoId")})
+    , @NamedQuery(name = "Deuda.findByFecha", query = "SELECT d FROM Deuda d WHERE d.fecha = :fecha")})
 public class Deuda implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,10 +62,6 @@ public class Deuda implements Serializable {
     @Column(name = "FECHA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "DOCUMENTO_ID")
-    private BigInteger documentoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deuda")
     private List<Usuariodeuda> usuariodeudaList;
     @OneToMany(mappedBy = "deudaId")
@@ -83,11 +78,6 @@ public class Deuda implements Serializable {
 
     public Deuda(BigDecimal id) {
         this.id = id;
-    }
-
-    public Deuda(BigDecimal id, BigInteger documentoId) {
-        this.id = id;
-        this.documentoId = documentoId;
     }
 
     public BigDecimal getId() {
@@ -120,14 +110,6 @@ public class Deuda implements Serializable {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public BigInteger getDocumentoId() {
-        return documentoId;
-    }
-
-    public void setDocumentoId(BigInteger documentoId) {
-        this.documentoId = documentoId;
     }
 
     @XmlTransient

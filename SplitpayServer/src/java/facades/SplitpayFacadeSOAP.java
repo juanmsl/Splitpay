@@ -42,8 +42,8 @@ public class SplitpayFacadeSOAP {
         return usersController.login(user.getEmail(), user.getContrasena());
     }
     
-    public boolean postingBill(Deuda debt) {
-        return controllerPostingBill.postingBill(debt);
+    public boolean postingBill(Deuda debt, List<Usuario> users) {
+        return controllerPostingBill.postingBill(debt, users);
     }
 
     public boolean doPayment(Pago payment) {
@@ -72,5 +72,13 @@ public class SplitpayFacadeSOAP {
     
     public List<Usuario> getUsersNotInGroup(Grupo grupo) {
         return groupController.getUsersNotInGroup(grupo);
+    }
+    
+    public List<Deuda> getDebtByGroup(Grupo group) {
+        return groupController.getDebtByGroup(group.getId());
+    }
+    
+    public String getRol(Grupo group, Usuario user) {
+        return groupController.getRol(group.getId(), user.getId());
     }
 }

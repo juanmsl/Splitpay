@@ -2,12 +2,14 @@ package controllers;
 
 import entities.Deuda;
 import entities.Grupo;
+import entities.Notificacion;
 import entities.Usuario;
 import entities.Usuariodeuda;
 import entities.Usuariogrupo;
-import java.math.BigDecimal;
+import integration.facades.NotificacionFacadeRemote;
 import java.math.BigInteger;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,29 +20,34 @@ import javax.persistence.Query;
 @LocalBean
 public class ControllerFinalDebt {
 
+    @EJB
+    private NotificacionFacadeRemote notificacionFacade;
+
+    @EJB
+    private DeudaController deudaController;
+
+    @EJB
+    private GroupController groupController;
+
     @PersistenceContext(unitName = "SplitpayServerPU")
     private EntityManager em;
 
     public boolean finalDebtResolution(Grupo group) {
-        
-        for(Deuda deuda : group.getDeudaList()) {
-            for(Usuariodeuda usuariodeuda : deuda.getUsuariodeudaList()) {
-                Usuario usuario = usuariodeuda.getUsuario();
-                BigInteger monto = usuariodeuda.getMonto();
-                // TODO: Completar posting
+        List<Deuda> debtByGroup = groupController.getDebtByGroup(group.getId());
+        for(Deuda deuda : debtByGroup) {
+            List<Usuariodeuda> usersFromDebt = deudaController.getUsersFromDebt(deuda.getId());
+            for(Usuariodeuda usuariodeuda : usersFromDebt) {
+                notify(usuariodeuda, "Debes pagar esta deuda de " + usuariodeuda.getMonto() + " porque se cerrara el grupo");
             }
         }
         return false;
     }
     
-    
-    public List<Grupo> getDebts(BigDecimal id) {
-        Query query = em.createNamedQuery("Usuariogrupo.findByGrupoId", Usuariogrupo.class);
-        try {
-            query.setParameter("grupoId", id);
-            return (List<Usuariogrupo>)query.getResultList();
-        } catch(Exception e) {
-            return null;
-        }
+     private boolean notify(Usuariodeuda usuario, String text) {
+        Notificacion notificacion = new Notificacion();
+        notificacion.setUsuarioId(usuario.getUsuario());
+        notificacion.setTexto(text);
+        notificacionFacade.create(notificacion);
+        return true;
     }
 }

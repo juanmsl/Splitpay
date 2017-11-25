@@ -12,10 +12,10 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author juanm
+ * @author sala_a
  */
 @Stateless
-public class DeudaFacade extends AbstractFacade<Deuda> implements integration.facades.DeudaFacadeRemote {
+public class DeudaFacade extends AbstractFacade<Deuda> implements DeudaFacadeRemote {
 
     @PersistenceContext(unitName = "SplitpayServerPU")
     private EntityManager em;

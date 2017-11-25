@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author juanm
+ * @author sala_a
  */
 @Stateless
 public class UsuariogrupoFacade extends AbstractFacade<Usuariogrupo> implements integration.facades.UsuariogrupoFacadeRemote {

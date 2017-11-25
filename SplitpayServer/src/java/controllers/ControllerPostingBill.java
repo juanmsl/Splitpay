@@ -7,6 +7,7 @@ package controllers;
 
 import entities.Deuda;
 import entities.Notificacion;
+import entities.Usuario;
 import entities.Usuariodeuda;
 import integration.facades.DeudaFacadeRemote;
 import integration.facades.NotificacionFacadeRemote;
@@ -33,20 +34,10 @@ public class ControllerPostingBill {
     @EJB
     private DeudaFacadeRemote deudaFacade;
 
-    public boolean postingBill(Deuda debt) {
+    public boolean postingBill(Deuda debt, List<Usuario> users) {
         debt = calculateAmount(debt);
         deudaFacade.create(debt);
-        return notify(getUsuariosDeuda(debt.getId()), "Se ha añadido una nueva deuda al grupo " + debt.getNombre());
-    }
-    
-    private List<Usuariodeuda> getUsuariosDeuda(BigDecimal id) {
-        Query query = em.createNamedQuery("Usuariodeuda.findByDeudaId", Usuariodeuda.class);
-        try {
-            query.setParameter("deudaId", id);
-            return (List<Usuariodeuda>)query.getResultList();
-        } catch(Exception e) {
-            return null;
-        }
+        return notify(users, "Se ha añadido una nueva deuda al grupo " + debt.getNombre());
     }
     
     private Deuda calculateAmount(Deuda debt) {
@@ -57,10 +48,10 @@ public class ControllerPostingBill {
         return debt;
     }
     
-    private boolean notify(List<Usuariodeuda> usuarios, String text) {
-        for(Usuariodeuda usuario : usuarios) {
+    private boolean notify(List<Usuario> usuarios, String text) {
+        for(Usuario usuario : usuarios) {
             Notificacion notificacion = new Notificacion();
-            notificacion.setUsuarioId(usuario.getUsuario());
+            notificacion.setUsuarioId(usuario);
             notificacion.setTexto(text);
             notificacionFacade.create(notificacion);
         }
