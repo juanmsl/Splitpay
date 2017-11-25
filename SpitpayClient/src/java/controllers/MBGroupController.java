@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import integration.splitpaysoap.Deuda;
 import integration.splitpaysoap.Grupo;
 import integration.splitpaysoap.RolTypes;
 import integration.splitpaysoap.Usuario;
@@ -12,6 +13,7 @@ import integration.splitpaysoap.Usuariogrupo;
 import integration.splitpaysoap.WSSplitpay;
 import integration.splitpaysoap.WSSplitpay_Service;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Named;
@@ -34,18 +36,59 @@ public class MBGroupController implements Serializable{
 
     @Inject
     MBHomeController home;
+    @Inject
+    MBIndexController index;
     
-    private List <String> usuariosGrupoSeleccionados;
-    private List<SelectItem> listaUsuariosGrupo;
-    private List <String> usuariosSeleccionados;
-    private List<SelectItem> listaUsuarios;
+    
+    transient private List <String> usuariosGrupoSeleccionados;
+    transient private List<SelectItem> listaUsuariosGrupo;
+    transient private List <String> usuariosSeleccionados;
+    transient private List<SelectItem> listaUsuarios;
+    transient private List<SelectItem> listaDeudas;
+    transient private String deudas;
     private Grupo grupo;
+    private Deuda deuda;
+    private String result;
     
     
     public MBGroupController() {
-        grupo = home.getGrupo();
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+    
+    
+
+    public List<SelectItem> getListaDeudas() {
+        return listaDeudas;
+    }
+
+    public Deuda getDeuda() {
+        return deuda;
+    }
+
+    public void setDeuda(Deuda deuda) {
+        this.deuda = deuda;
+    }
+    
+
+    public void setListaDeudas(List<SelectItem> listaDeudas) {
+        this.listaDeudas = listaDeudas;
+    }
+
+    public String getDeudas() {
+        return deudas;
+    }
+
+    public void setDeudas(String deudas) {
+        this.deudas = deudas;
+    }       
+    
     public WSSplitpay_Service getService() {
         return service;
     }
@@ -101,6 +144,15 @@ public class MBGroupController implements Serializable{
     public void setListaUsuarios(List<SelectItem> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
+
+    public MBIndexController getIndex() {
+        return index;
+    }
+
+    public void setIndex(MBIndexController index) {
+        this.index = index;
+    }
+    
     
     public void preRenderView() {
         listaUsuariosGrupo = new ArrayList<>();
@@ -116,6 +168,14 @@ public class MBGroupController implements Serializable{
         for (Usuario usuariogrupo : notGroup) {
             String userName = usuariogrupo.getNombre();
             listaUsuarios.add(new SelectItem(userName));
+        }
+        listaDeudas = new ArrayList<>();
+        List<Deuda> debts = getDebtByGroup(home.getGrupo());
+        for (Deuda debt : debts) {
+            String debtName = debt.getNombre();
+            BigDecimal debtId = debt.getId();
+            String deudaLista = debtId + " - " + debtName;
+            listaDeudas.add(new SelectItem(deudaLista));
         }
         
     }
@@ -135,6 +195,34 @@ public class MBGroupController implements Serializable{
     public String agregarDeuda() {
         return "postingBill";
     }
+    
+    public String pagarDeuda() {
+        List<Deuda> deudas = getDebtByGroup(home.getGrupo());
+        for (Deuda debt : deudas) {
+            String debtName = debt.getNombre();
+            BigDecimal debtId = debt.getId();
+            String deudaLista = debtId + " - " + debtName;
+            if(deudaLista.equals(getDeudas())) {
+                deuda = debt;
+                return "pago";
+            }
+        }
+        return "home";
+    }
+    
+    public String finalDebt (){
+        this.setResult("");
+        String rol = getRol(home.getGrupo(), index.getUser());
+        if(RolTypes.LIDER.toString().equalsIgnoreCase(rol)){
+            this.setResult("Cierre de grupo activado");
+            if(finalDebtResolution(home.getGrupo())){
+               this.setResult("Solicitud enviada"); 
+            }
+        }else{
+            this.setResult("Usted no posee permisos para cerrar las deudas del grupo");
+        }
+        return "grupos";        
+    }
 
     private List<Usuariogrupo> getUsersGroup(Grupo group) {
         WSSplitpay_Service service = new WSSplitpay_Service();
@@ -148,10 +236,29 @@ public class MBGroupController implements Serializable{
         return port.getUsersNotInGroup(group);
     }
     
+    private List<Deuda> getDebtByGroup (Grupo group) {
+        WSSplitpay_Service service = new WSSplitpay_Service();
+        WSSplitpay port = service.getWSSplitpayPort();
+        return port.getDebtByGroup(group);
+    }
+    
     
     private boolean addMembers(List<Usuario> members, Grupo grupo, RolTypes type) {
         WSSplitpay_Service service = new WSSplitpay_Service();
         WSSplitpay port = service.getWSSplitpayPort();
         return port.addMembers(members, grupo, type);
     }
+
+    private String getRol(Grupo group, Usuario user) {
+        WSSplitpay_Service service = new WSSplitpay_Service();
+        WSSplitpay port = service.getWSSplitpayPort();
+        return port.getRol(group, user);
+    }
+
+    private boolean finalDebtResolution(Grupo group) {
+        WSSplitpay_Service service = new WSSplitpay_Service();
+        WSSplitpay port = service.getWSSplitpayPort();
+        return port.finalDebtResolution(group);
+    }
+    
 }

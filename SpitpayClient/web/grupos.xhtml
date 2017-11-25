@@ -14,24 +14,38 @@
     </h:head>
     <h:body>
         <f:view>
-            <h:form>
+            <h:form class="form">
                 <h1>
                    #{mBGroupController.home.grupo.nombre} 
                 </h1>
                 <h2>
                     Integrantes del grupo
                 </h2>
-                <h:selectManyCheckbox value ="#{mBGroupController.usuariosGrupoSeleccionados}">
+                <h:selectManyListbox value ="#{mBGroupController.usuariosGrupoSeleccionados}">
                     <f:selectItems value="#{mBGroupController.listaUsuariosGrupo}"/>
-                </h:selectManyCheckbox>
+                </h:selectManyListbox>
                 <h2>
                     Usuarios no integrados
                 </h2>
                 <h:selectManyCheckbox value ="#{mBGroupController.usuariosSeleccionados}">
                     <f:selectItems value="#{mBGroupController.listaUsuarios}"/>
                 </h:selectManyCheckbox>
-                <h:commandButton value="Agregar al grupo" action="#{mBGroupController.agregarAlGrupo}"/>
-                <h:commandButton value="Agregar deuda" action="#{mBGroupController.agregarDeuda}"/>
+                <h:commandButton class="button" value="Agregar al grupo" action="#{mBGroupController.agregarAlGrupo}"/>
+                <h2>
+                    Deudas del grupo
+                </h2>
+                <h:selectOneMenu value ="#{mBGroupController.deudas}">
+                    <f:selectItems value="#{mBGroupController.listaDeudas}"/>
+                </h:selectOneMenu>
+                <br/>
+                <h:commandButton class="button" value="Pagar deuda" action="#{mBGroupController.pagarDeuda}"/>
+                <hr/>
+                <h:commandButton class="button" value="Agregar deuda" action="#{mBGroupController.agregarDeuda}"/>
+                <h:commandButton class="button" value="Finalizar grupo" action="#{mBGroupController.finalDebt}"/>
+                <br/>
+                <label>
+                    #{mBGroupController.result}
+                </label>
             </h:form>
         </f:view>
 

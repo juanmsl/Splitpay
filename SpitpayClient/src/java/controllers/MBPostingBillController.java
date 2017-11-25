@@ -47,9 +47,10 @@ public class MBPostingBillController implements Serializable{
     private List<SelectItem> listaUsuariosGrupo;
     private Usuario usuario;
     private Grupo grupo;
+    private String result;
     
     @Inject
-    MBGroupController grupos;
+    MBHomeController home;
     
     public MBPostingBillController() {
     }
@@ -57,6 +58,31 @@ public class MBPostingBillController implements Serializable{
     public String getNombreDeuda() {
         return nombreDeuda;
     }
+
+    public WSSplitpay_Service getService() {
+        return service;
+    }
+
+    public void setService(WSSplitpay_Service service) {
+        this.service = service;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public MBHomeController getHome() {
+        return home;
+    }
+
+    public void setHome(MBHomeController home) {
+        this.home = home;
+    }
+    
 
     public void setNombreDeuda(String nombreDeuda) {
         this.nombreDeuda = nombreDeuda;
@@ -110,17 +136,9 @@ public class MBPostingBillController implements Serializable{
         this.listaUsuariosGrupo = listaUsuariosGrupo;
     }
 
-    public MBGroupController getGrupos() {
-        return grupos;
-    }
-
-    public void setGrupos(MBGroupController grupos) {
-        this.grupos = grupos;
-    }
-    
     public void preRenderView() {
         listaUsuariosGrupo = new ArrayList<>();
-        List<Usuariogrupo> groups = getUsersGroup(grupos.getGrupo());
+        List<Usuariogrupo> groups = getUsersGroup(home.getGrupo());
         for (Usuariogrupo group : groups) {
             if(group.getUsuario() != null) {
                 String userName = group.getUsuario().getNombre();
@@ -133,7 +151,6 @@ public class MBPostingBillController implements Serializable{
     public String posting(){
         Deuda deuda = new Deuda();
         GregorianCalendar c = new GregorianCalendar();
-        c.setTime(this.fecha);
         XMLGregorianCalendar date2;
         try {
             date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
@@ -143,7 +160,23 @@ public class MBPostingBillController implements Serializable{
         }
         deuda.setNombre(this.getNombreDeuda());
         deuda.setCosto(this.getMonto());
-        return "home";
+        deuda.setGrupoId(home.getGrupo());
+        List<Usuario> usuariosSeleccionados = new ArrayList<>();
+        List<Usuariogrupo> groups = getUsersGroup(home.getGrupo());
+        for (Usuariogrupo group : groups) {
+            String userName = group.getUsuario().getNombre();
+            if(usuariosGrupoSeleccionados.contains(userName)){
+                usuariosSeleccionados.add(group.getUsuario());
+            }
+        }
+        if(postingBill(deuda, usuariosSeleccionados)){
+            return "grupos";
+        }else{
+            this.setResult("Error al agregar la nueva deuda");
+            return "postingBill";            
+        }
+        
+        
         
         
     }
@@ -152,6 +185,12 @@ public class MBPostingBillController implements Serializable{
         WSSplitpay_Service service = new WSSplitpay_Service();
         WSSplitpay port = service.getWSSplitpayPort();
         return port.getUsersGroup(group);
+    }
+
+    private boolean postingBill(Deuda debt, List<Usuario> usuarios) {
+        WSSplitpay_Service service = new WSSplitpay_Service();
+        WSSplitpay port = service.getWSSplitpayPort();
+        return port.postingBill(debt, usuarios);
     }
     
     

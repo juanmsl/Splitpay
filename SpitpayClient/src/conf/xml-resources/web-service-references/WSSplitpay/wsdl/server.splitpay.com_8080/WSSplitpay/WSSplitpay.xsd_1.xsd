@@ -18,9 +18,17 @@
 
 <xs:element name="finalDebtResolutionResponse" type="tns:finalDebtResolutionResponse"/>
 
+<xs:element name="getDebtByGroup" type="tns:getDebtByGroup"/>
+
+<xs:element name="getDebtByGroupResponse" type="tns:getDebtByGroupResponse"/>
+
 <xs:element name="getGroups" type="tns:getGroups"/>
 
 <xs:element name="getGroupsResponse" type="tns:getGroupsResponse"/>
+
+<xs:element name="getRol" type="tns:getRol"/>
+
+<xs:element name="getRolResponse" type="tns:getRolResponse"/>
 
 <xs:element name="getUsersGroup" type="tns:getUsersGroup"/>
 
@@ -82,6 +90,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getRol">
+<xs:sequence>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+<xs:element name="user" type="tns:usuario" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getRolResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="createGroup">
 <xs:sequence>
 <xs:element name="group" type="tns:grupo" minOccurs="0"/>
@@ -109,18 +130,17 @@
 <xs:complexType name="postingBill">
 <xs:sequence>
 <xs:element name="debt" type="tns:deuda" minOccurs="0"/>
+<xs:element name="users" type="tns:usuario" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="deuda">
 <xs:sequence>
 <xs:element name="costo" type="xs:integer" minOccurs="0"/>
-<xs:element name="documentoId" type="xs:integer" minOccurs="0"/>
 <xs:element name="fecha" type="xs:dateTime" minOccurs="0"/>
 <xs:element name="grupoId" type="tns:grupo" minOccurs="0"/>
 <xs:element name="id" type="xs:decimal" minOccurs="0"/>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
-<xs:element name="usuarioId" type="tns:usuario" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -208,7 +228,7 @@
 
 <xs:complexType name="getUsersNotInGroup">
 <xs:sequence>
-<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+<xs:element name="grupo" type="tns:grupo" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -220,13 +240,25 @@
 
 <xs:complexType name="getUsersGroup">
 <xs:sequence>
-<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+<xs:element name="grupo" type="tns:grupo" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getUsersGroupResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:usuariogrupo" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDebtByGroup">
+<xs:sequence>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDebtByGroupResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:deuda" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

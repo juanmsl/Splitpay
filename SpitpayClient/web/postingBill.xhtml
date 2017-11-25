@@ -9,30 +9,30 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"></meta>
         <link rel="stylesheet" href="css/styles.css"></link>
         <f:metadata>
-            <f:event type="preRenderView" listener="#{mBGroupController.preRenderView}"/>
+            <f:event type="preRenderView" listener="#{mBPostingBillController.preRenderView}"/>
         </f:metadata>
     </h:head>
     <h:body>
+        <h1><legend>Agregar deuda</legend></h1>
         <f:view>
-            <h:form class="form">
-                <h1><legend>Agregar deuda</legend></h1>
+            <h:form class ="form">
                 <fieldset>
                     <h:inputText class="input" id="name" value="#{mBPostingBillController.nombreDeuda}" />
-                    <label for="name">Nombre de la deuda</label>
+                    <label class="label" for="name">Nombre de la deuda</label>
                 </fieldset>
                 <fieldset>
                     <h:inputText class="input" id="cost" value="#{mBPostingBillController.monto}" />
-                    <label for="cost">Costo de la deuda</label>
+                    <label class="label" for="cost">Costo de la deuda</label>
                 </fieldset>
-                <fieldset>
-                    <h:inputText class="input" id="email" value="#{mBPostingBillController.fecha}" />
-                    <label for="email">Correo</label>
-                </fieldset>
-                <h:selectManyCheckbox value ="#{mBPostingBillController.listaUsuariosGrupo}">
+                <h:selectManyCheckbox value ="#{mBPostingBillController.usuariosGrupoSeleccionados}">
                     <f:selectItems value="#{mBPostingBillController.listaUsuariosGrupo}"/>
                 </h:selectManyCheckbox>
-                <h:commandButton class="button" value="Crear deuda" action="#{mBPostingBillController.posting}"/>                
+                <h:commandButton class="button" value="Crear deuda" action="#{mBPostingBillController.posting}"/>
             </h:form>
         </f:view>
+        <br/>
+        <label>
+            #{mBPostingBillController.result}
+        </label>
     </h:body>
 </html>
