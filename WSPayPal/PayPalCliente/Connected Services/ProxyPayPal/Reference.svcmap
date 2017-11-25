@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="410b5295-c690-4590-adf7-309debdc2525" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50546/WSUsuario.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WSUsuario.wsdl" MetadataType="Wsdl" ID="0256ee17-09eb-4651-b4df-a116976f2cea" SourceId="1" SourceUrl="http://localhost:50546/WSUsuario.svc?wsdl" />
+    <MetadataFile FileName="WSUsuario.xsd" MetadataType="Schema" ID="874f9bf4-eb59-4ccf-ba88-355941175cde" SourceId="1" SourceUrl="http://localhost:50546/WSUsuario.svc?xsd=xsd2" />
+    <MetadataFile FileName="WSUsuario1.xsd" MetadataType="Schema" ID="51502699-2a0d-41a9-96a9-344d8448573b" SourceId="1" SourceUrl="http://localhost:50546/WSUsuario.svc?xsd=xsd0" />
+    <MetadataFile FileName="WSUsuario.disco" MetadataType="Disco" ID="f8ade725-cf17-4604-8788-5047731ca7c1" SourceId="1" SourceUrl="http://localhost:50546/WSUsuario.svc?disco" />
+    <MetadataFile FileName="WSUsuario2.xsd" MetadataType="Schema" ID="8e852867-aa6d-41a9-bdb0-6d376ab83d3b" SourceId="1" SourceUrl="http://localhost:50546/WSUsuario.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
