@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author sala_a
  */
 @Stateless
-public class DeudaFacade extends AbstractFacade<Deuda> implements DeudaFacadeRemote {
+public class DeudaFacade extends AbstractFacade<Deuda> implements integration.facades.DeudaFacadeRemote {
 
     @PersistenceContext(unitName = "SplitpayServerPU")
     private EntityManager em;

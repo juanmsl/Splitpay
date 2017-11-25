@@ -74,8 +74,6 @@ public class Usuario implements Serializable {
     private List<Pago> pagoList;
     @OneToMany(mappedBy = "usuarioId")
     private List<Notificacion> notificacionList;
-    @OneToMany(mappedBy = "usuarioId")
-    private List<Deuda> deudaList;
 
     public Usuario() {
     }
@@ -166,15 +164,6 @@ public class Usuario implements Serializable {
 
     public void setNotificacionList(List<Notificacion> notificacionList) {
         this.notificacionList = notificacionList;
-    }
-
-    @XmlTransient
-    public List<Deuda> getDeudaList() {
-        return deudaList;
-    }
-
-    public void setDeudaList(List<Deuda> deudaList) {
-        this.deudaList = deudaList;
     }
 
     @Override

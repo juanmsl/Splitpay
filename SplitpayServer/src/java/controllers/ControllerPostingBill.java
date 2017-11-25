@@ -6,11 +6,13 @@
 package controllers;
 
 import entities.Deuda;
+import entities.Grupo;
 import entities.Notificacion;
 import entities.Usuario;
 import entities.Usuariodeuda;
 import integration.facades.DeudaFacadeRemote;
 import integration.facades.NotificacionFacadeRemote;
+import integration.facades.UsuariodeudaFacadeRemote;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -25,6 +27,9 @@ import javax.persistence.Query;
 @LocalBean
 public class ControllerPostingBill {
 
+    @EJB
+    private UsuariodeudaFacadeRemote usuariodeudaFacade;
+
     @PersistenceContext(unitName = "SplitpayServerPU")
     private EntityManager em;
     
@@ -35,17 +40,32 @@ public class ControllerPostingBill {
     private DeudaFacadeRemote deudaFacade;
 
     public boolean postingBill(Deuda debt, List<Usuario> users) {
-        debt = calculateAmount(debt);
         deudaFacade.create(debt);
-        return notify(users, "Se ha añadido una nueva deuda al grupo " + debt.getNombre());
+        List<Deuda> findAll = deudaFacade.findAll();
+        BigDecimal maxId = new BigDecimal(0);
+        for (Deuda deuda1 : findAll) {
+            if(maxId.compareTo(deuda1.getId()) < 0) {
+                maxId = deuda1.getId();
+            }
+        }
+        debt.setId(maxId);
+        calculateAmount(debt, users);
+        System.out.println("Sali");
+        return notify(users, "Se ha añadido una nueva deuda, " + debt.getNombre());
     }
     
-    private Deuda calculateAmount(Deuda debt) {
-        BigInteger amount = debt.getCosto().divide(new BigInteger("" + debt.getUsuariodeudaList()));
-        for(Usuariodeuda usuariodeuda : debt.getUsuariodeudaList()) {
+    private boolean calculateAmount(Deuda debt, List<Usuario> users) {
+        BigInteger amount = debt.getCosto().divide(new BigInteger(users.size() + ""));
+        System.out.println("Amount: " + amount + " / " + debt.getCosto());
+        for(Usuario user : users) {
+            System.out.println(debt.getId());
+            Usuariodeuda usuariodeuda = new Usuariodeuda(user.getId().toBigInteger(), debt.getId().toBigInteger());
+            usuariodeuda.setDeuda(debt);
+            usuariodeuda.setUsuario(user);
             usuariodeuda.setMonto(amount);
+            usuariodeudaFacade.create(usuariodeuda);
         }
-        return debt;
+        return true;
     }
     
     private boolean notify(List<Usuario> usuarios, String text) {
@@ -54,6 +74,7 @@ public class ControllerPostingBill {
             notificacion.setUsuarioId(usuario);
             notificacion.setTexto(text);
             notificacionFacade.create(notificacion);
+            // TODO ENCOLAR
         }
         return true;
     }

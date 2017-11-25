@@ -40,7 +40,7 @@ public class ControllerFinalDebt {
                 notify(usuariodeuda, "Debes pagar esta deuda de " + usuariodeuda.getMonto() + " porque se cerrara el grupo");
             }
         }
-        return false;
+        return true;
     }
     
      private boolean notify(Usuariodeuda usuario, String text) {

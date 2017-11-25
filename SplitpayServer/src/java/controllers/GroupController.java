@@ -69,7 +69,7 @@ public class GroupController {
             Usuariogrupo usuariogrupo = new Usuariogrupo(user.getId().toBigInteger(), group.getId().toBigInteger());
             usuariogrupo.setGrupo(group);
             usuariogrupo.setUsuario(user);
-            usuariogrupo.setRol("Lider");
+            usuariogrupo.setRol(type.toString());
             usuariogrupoFacade.create(usuariogrupo);
         }
         return true;
@@ -96,11 +96,11 @@ public class GroupController {
     }
 
     public String getRol(BigDecimal groupId, BigDecimal userId) {
-        Query query = em.createNativeQuery("select rol from USUARIOGRUPO where GRUPO_ID = ? and USUARIO_ID = ?", String.class);
+        Query query = em.createNativeQuery("select * from USUARIOGRUPO where GRUPO_ID = ? and USUARIO_ID = ?", Usuariogrupo.class);
         try {
             query.setParameter(1, groupId);
             query.setParameter(2, userId);
-            return (String) query.getSingleResult();
+            return ((Usuariogrupo) query.getSingleResult()).getRol();
         } catch(Exception e) {
             return null;
         }

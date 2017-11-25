@@ -69,9 +69,6 @@ public class Deuda implements Serializable {
     @JoinColumn(name = "GRUPO_ID", referencedColumnName = "ID")
     @ManyToOne
     private Grupo grupoId;
-    @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID")
-    @ManyToOne
-    private Usuario usuarioId;
 
     public Deuda() {
     }
@@ -136,14 +133,6 @@ public class Deuda implements Serializable {
 
     public void setGrupoId(Grupo grupoId) {
         this.grupoId = grupoId;
-    }
-
-    public Usuario getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Usuario usuarioId) {
-        this.usuarioId = usuarioId;
     }
 
     @Override
