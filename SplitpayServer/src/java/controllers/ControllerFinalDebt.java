@@ -9,9 +9,14 @@ import entities.Usuariogrupo;
 import integration.facades.NotificacionFacadeRemote;
 import java.math.BigInteger;
 import java.util.List;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -19,6 +24,13 @@ import javax.persistence.Query;
 @Stateless
 @LocalBean
 public class ControllerFinalDebt {
+
+    @Resource(mappedName = "jms/splitpayQueue")
+    private Queue splitpayQueue;
+
+    @Inject
+    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
+    private JMSContext context;
 
     @EJB
     private NotificacionFacadeRemote notificacionFacade;
@@ -48,6 +60,11 @@ public class ControllerFinalDebt {
         notificacion.setUsuarioId(usuario.getUsuario());
         notificacion.setTexto(text);
         notificacionFacade.create(notificacion);
+        sendJMSMessageToSplitpayQueue(notificacion);
         return true;
+    }
+
+    private void sendJMSMessageToSplitpayQueue(Notificacion notificacion) {
+        context.createProducer().send(splitpayQueue, notificacion);
     }
 }

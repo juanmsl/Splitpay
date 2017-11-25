@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/juanm/Desktop/Splitpay/SplitpayServer/src/java/controllers/ControllerFinalDebt.java</file>
-            <file>file:/C:/Users/juanm/Desktop/Splitpay/SplitpayServer/src/java/facades/SplitpayFacadeSOAP.java</file>
-            <file>file:/C:/Users/juanm/Desktop/Splitpay/SplitpayServer/src/java/controllers/GroupController.java</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/src/java/controllers/GroupController.java</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/src/java/controllers/ControllerFinalDebt.java</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/setup/glassfish-resources.xml</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/src/java/controllers/ControllerPostingBill.java</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/src/java/facades/SplitpayFacadeSOAP.java</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/src/java/controllers/MDBEmailQueue.java</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/src/java/integration/EmailIntegrator.java</file>
+            <file>file:/C:/Users/sala_a/Desktop/Splitpay/SplitpayServer/src/java/controllers/DeudaController.java</file>
         </group>
     </open-files>
 </project-private>

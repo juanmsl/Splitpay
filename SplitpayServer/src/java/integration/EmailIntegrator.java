@@ -18,17 +18,19 @@ import javax.mail.internet.MimeMessage;
 @LocalBean
 public class EmailIntegrator {
 
-    public boolean sendMessage(final String username, final String password, String text) {
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class",
-                "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
+    public boolean sendMessage(final String email, String text) {
+        final String username = "juanmsl_pk@hotmail.com";
+        final String password = "aguilap0rs1empre";
 
-        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-            @Override
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.trust", "outlook.office365.com");
+        props.put("mail.smtp.host", "outlook.office365.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
@@ -37,18 +39,20 @@ public class EmailIntegrator {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("from@no-spam.com"));
+            message.setFrom(new InternetAddress(username ));
             message.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse("to@no-spam.com"));
-            message.setSubject("Testing Subject");
+                    InternetAddress.parse(email));
+            message.setSubject("Splitpay - nueva deuda!");
             message.setText(text);
 
             Transport.send(message);
-        } catch (AddressException ex) {
-            Logger.getLogger(EmailIntegrator.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MessagingException ex) {
-            Logger.getLogger(EmailIntegrator.class.getName()).log(Level.SEVERE, null, ex);
+
+            System.out.println("Correo enviado " + email);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
+
         return true;
     }
 }

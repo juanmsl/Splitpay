@@ -15,9 +15,7 @@ public class ControllerPayment {
 
     public boolean doPayment(Pago payment) {
         pagoFacade.create(payment);
-        // TODO: Conectar a paypal y enviar pago
-        // TODO: Enviar a topico
-        throw new UnsupportedOperationException("Not supported yet.");
+        return true;
     }
     
 }
