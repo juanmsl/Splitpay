@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://services/" targetNamespace="http://services/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="deuda" type="tns:deuda" />
+  <xs:element name="findByDate" type="tns:findByDate" />
+  <xs:element name="findByDateResponse" type="tns:findByDateResponse" />
+  <xs:element name="findByDocument" type="tns:findByDocument" />
+  <xs:element name="findByDocumentResponse" type="tns:findByDocumentResponse" />
+  <xs:element name="grupo" type="tns:grupo" />
+  <xs:element name="pago" type="tns:pago" />
+  <xs:element name="usuario" type="tns:usuario" />
+  <xs:complexType name="findByDocument">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="document" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findByDocumentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:pago" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pago">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="concepto" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcion" type="xs:string" />
+      <xs:element minOccurs="0" name="deudaId" type="tns:deuda" />
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="id" type="xs:decimal" />
+      <xs:element minOccurs="0" name="monto" type="xs:integer" />
+      <xs:element minOccurs="0" name="usuarioId" type="tns:usuario" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="deuda">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="costo" type="xs:integer" />
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="grupoId" type="tns:grupo" />
+      <xs:element minOccurs="0" name="id" type="xs:decimal" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="grupo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:decimal" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="usuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="contrasena" type="xs:string" />
+      <xs:element minOccurs="0" name="email" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:decimal" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="numdocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="tipodocumento" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findByDate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="date" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="findByDateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:pago" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
