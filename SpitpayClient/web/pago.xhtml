@@ -13,8 +13,8 @@
         <f:view>
             <h:form class="form">
                 <h1><legend>Pago PayPal</legend></h1>
-                <br/>
                 <h2><legend>#{mBPagoController.grupo.deuda.nombre}</legend></h2>
+                <h3><legend>Valor de la deuda $#{mBPagoController.grupo.deuda.costo}</legend></h3>
                 <fieldset>                
                     <h:inputText class="input" id="Monto" value="#{mBPagoController.montoAPagar}" />
                     <label class="label" for="Monto a pagar">Monto a pagar</label>

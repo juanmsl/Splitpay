@@ -190,18 +190,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="finalDebtResolution">
-<xs:sequence>
-<xs:element name="group" type="tns:grupo" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="finalDebtResolutionResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="doPayment">
 <xs:sequence>
 <xs:element name="payment" type="tns:pago" minOccurs="0"/>
@@ -226,15 +214,15 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getUsersNotInGroup">
+<xs:complexType name="finalDebtResolution">
 <xs:sequence>
-<xs:element name="grupo" type="tns:grupo" minOccurs="0"/>
+<xs:element name="group" type="tns:grupo" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getUsersNotInGroupResponse">
+<xs:complexType name="finalDebtResolutionResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:usuario" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -247,6 +235,18 @@
 <xs:complexType name="getUsersGroupResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:usuariogrupo" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsersNotInGroup">
+<xs:sequence>
+<xs:element name="grupo" type="tns:grupo" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsersNotInGroupResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuario" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

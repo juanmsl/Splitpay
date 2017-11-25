@@ -20,6 +20,7 @@ import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.xml.ws.WebServiceRef;
 
@@ -31,8 +32,6 @@ import javax.xml.ws.WebServiceRef;
 @SessionScoped
 public class MBGroupController implements Serializable{
 
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/server.splitpay.com_8080/WSSplitpay/WSSplitpay.wsdl")
-    private WSSplitpay_Service service;
 
     @Inject
     MBHomeController home;
@@ -89,14 +88,7 @@ public class MBGroupController implements Serializable{
         this.deudas = deudas;
     }       
     
-    public WSSplitpay_Service getService() {
-        return service;
-    }
-
-    public void setService(WSSplitpay_Service service) {
-        this.service = service;
-    }
-
+    
     public Grupo getGrupo() {
         return grupo;
     }

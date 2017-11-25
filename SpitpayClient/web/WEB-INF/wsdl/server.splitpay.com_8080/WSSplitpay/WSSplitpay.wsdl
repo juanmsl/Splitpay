@@ -10,6 +10,60 @@
 <message name="createGroupResponse">
 <part name="parameters" element="tns:createGroupResponse"/>
 </message>
+<message name="getGroups">
+<part name="parameters" element="tns:getGroups"/>
+</message>
+<message name="getGroupsResponse">
+<part name="parameters" element="tns:getGroupsResponse"/>
+</message>
+<message name="doPayment">
+<part name="parameters" element="tns:doPayment"/>
+</message>
+<message name="doPaymentResponse">
+<part name="parameters" element="tns:doPaymentResponse"/>
+</message>
+<message name="addMembers">
+<part name="parameters" element="tns:addMembers"/>
+</message>
+<message name="addMembersResponse">
+<part name="parameters" element="tns:addMembersResponse"/>
+</message>
+<message name="getRol">
+<part name="parameters" element="tns:getRol"/>
+</message>
+<message name="getRolResponse">
+<part name="parameters" element="tns:getRolResponse"/>
+</message>
+<message name="registerUser">
+<part name="parameters" element="tns:registerUser"/>
+</message>
+<message name="registerUserResponse">
+<part name="parameters" element="tns:registerUserResponse"/>
+</message>
+<message name="loginUser">
+<part name="parameters" element="tns:loginUser"/>
+</message>
+<message name="loginUserResponse">
+<part name="parameters" element="tns:loginUserResponse"/>
+</message>
+<message name="getUsersGroup">
+<part name="parameters" element="tns:getUsersGroup"/>
+</message>
+<message name="getUsersGroupResponse">
+<part name="parameters" element="tns:getUsersGroupResponse"/>
+</message>
+<message name="postingBill">
+<part name="parameters" element="tns:postingBill"/>
+</message>
+<message name="postingBillResponse">
+<part name="parameters" element="tns:postingBillResponse"/>
+</message>
+<message name="getDebtByGroup">
+<part name="parameters" element="tns:getDebtByGroup"/>
+</message>
+<message name="getDebtByGroupResponse">
+<part name="parameters" element="tns:getDebtByGroupResponse"/>
+</message>
 <message name="finalDebtResolution">
 <part name="parameters" element="tns:finalDebtResolution"/>
 </message>
@@ -22,64 +76,46 @@
 <message name="getUsersNotInGroupResponse">
 <part name="parameters" element="tns:getUsersNotInGroupResponse"/>
 </message>
-<message name="getGroups">
-<part name="parameters" element="tns:getGroups"/>
-</message>
-<message name="getGroupsResponse">
-<part name="parameters" element="tns:getGroupsResponse"/>
-</message>
-<message name="addMembers">
-<part name="parameters" element="tns:addMembers"/>
-</message>
-<message name="addMembersResponse">
-<part name="parameters" element="tns:addMembersResponse"/>
-</message>
-<message name="loginUser">
-<part name="parameters" element="tns:loginUser"/>
-</message>
-<message name="loginUserResponse">
-<part name="parameters" element="tns:loginUserResponse"/>
-</message>
-<message name="postingBill">
-<part name="parameters" element="tns:postingBill"/>
-</message>
-<message name="postingBillResponse">
-<part name="parameters" element="tns:postingBillResponse"/>
-</message>
-<message name="registerUser">
-<part name="parameters" element="tns:registerUser"/>
-</message>
-<message name="registerUserResponse">
-<part name="parameters" element="tns:registerUserResponse"/>
-</message>
-<message name="doPayment">
-<part name="parameters" element="tns:doPayment"/>
-</message>
-<message name="doPaymentResponse">
-<part name="parameters" element="tns:doPaymentResponse"/>
-</message>
-<message name="getDebtByGroup">
-<part name="parameters" element="tns:getDebtByGroup"/>
-</message>
-<message name="getDebtByGroupResponse">
-<part name="parameters" element="tns:getDebtByGroupResponse"/>
-</message>
-<message name="getRol">
-<part name="parameters" element="tns:getRol"/>
-</message>
-<message name="getRolResponse">
-<part name="parameters" element="tns:getRolResponse"/>
-</message>
-<message name="getUsersGroup">
-<part name="parameters" element="tns:getUsersGroup"/>
-</message>
-<message name="getUsersGroupResponse">
-<part name="parameters" element="tns:getUsersGroupResponse"/>
-</message>
 <portType name="WSSplitpay">
 <operation name="createGroup">
 <input wsam:Action="http://services/WSSplitpay/createGroupRequest" message="tns:createGroup"/>
 <output wsam:Action="http://services/WSSplitpay/createGroupResponse" message="tns:createGroupResponse"/>
+</operation>
+<operation name="getGroups">
+<input wsam:Action="http://services/WSSplitpay/getGroupsRequest" message="tns:getGroups"/>
+<output wsam:Action="http://services/WSSplitpay/getGroupsResponse" message="tns:getGroupsResponse"/>
+</operation>
+<operation name="doPayment">
+<input wsam:Action="http://services/WSSplitpay/doPaymentRequest" message="tns:doPayment"/>
+<output wsam:Action="http://services/WSSplitpay/doPaymentResponse" message="tns:doPaymentResponse"/>
+</operation>
+<operation name="addMembers">
+<input wsam:Action="http://services/WSSplitpay/addMembersRequest" message="tns:addMembers"/>
+<output wsam:Action="http://services/WSSplitpay/addMembersResponse" message="tns:addMembersResponse"/>
+</operation>
+<operation name="getRol">
+<input wsam:Action="http://services/WSSplitpay/getRolRequest" message="tns:getRol"/>
+<output wsam:Action="http://services/WSSplitpay/getRolResponse" message="tns:getRolResponse"/>
+</operation>
+<operation name="registerUser">
+<input wsam:Action="http://services/WSSplitpay/registerUserRequest" message="tns:registerUser"/>
+<output wsam:Action="http://services/WSSplitpay/registerUserResponse" message="tns:registerUserResponse"/>
+</operation>
+<operation name="loginUser">
+<input wsam:Action="http://services/WSSplitpay/loginUserRequest" message="tns:loginUser"/>
+<output wsam:Action="http://services/WSSplitpay/loginUserResponse" message="tns:loginUserResponse"/>
+</operation>
+<operation name="getUsersGroup">
+<input wsam:Action="http://services/WSSplitpay/getUsersGroupRequest" message="tns:getUsersGroup"/>
+<output wsam:Action="http://services/WSSplitpay/getUsersGroupResponse" message="tns:getUsersGroupResponse"/>
+</operation>
+<operation name="postingBill">
+<input wsam:Action="http://services/WSSplitpay/postingBillRequest" message="tns:postingBill"/>
+<output wsam:Action="http://services/WSSplitpay/postingBillResponse" message="tns:postingBillResponse"/>
+</operation>
+<operation name="getDebtByGroup">
+<input wsam:Action="http://services/WSSplitpay/getDebtByGroupRequest" message="tns:getDebtByGroup"/>
+<output wsam:Action="http://services/WSSplitpay/getDebtByGroupResponse" message="tns:getDebtByGroupResponse"/>
 </operation>
 <operation name="finalDebtResolution">
 <input wsam:Action="http://services/WSSplitpay/finalDebtResolutionRequest" message="tns:finalDebtResolution"/>
@@ -88,42 +124,6 @@
 <operation name="getUsersNotInGroup">
 <input wsam:Action="http://services/WSSplitpay/getUsersNotInGroupRequest" message="tns:getUsersNotInGroup"/>
 <output wsam:Action="http://services/WSSplitpay/getUsersNotInGroupResponse" message="tns:getUsersNotInGroupResponse"/>
-</operation>
-<operation name="getGroups">
-<input wsam:Action="http://services/WSSplitpay/getGroupsRequest" message="tns:getGroups"/>
-<output wsam:Action="http://services/WSSplitpay/getGroupsResponse" message="tns:getGroupsResponse"/>
-</operation>
-<operation name="addMembers">
-<input wsam:Action="http://services/WSSplitpay/addMembersRequest" message="tns:addMembers"/>
-<output wsam:Action="http://services/WSSplitpay/addMembersResponse" message="tns:addMembersResponse"/>
-</operation>
-<operation name="loginUser">
-<input wsam:Action="http://services/WSSplitpay/loginUserRequest" message="tns:loginUser"/>
-<output wsam:Action="http://services/WSSplitpay/loginUserResponse" message="tns:loginUserResponse"/>
-</operation>
-<operation name="postingBill">
-<input wsam:Action="http://services/WSSplitpay/postingBillRequest" message="tns:postingBill"/>
-<output wsam:Action="http://services/WSSplitpay/postingBillResponse" message="tns:postingBillResponse"/>
-</operation>
-<operation name="registerUser">
-<input wsam:Action="http://services/WSSplitpay/registerUserRequest" message="tns:registerUser"/>
-<output wsam:Action="http://services/WSSplitpay/registerUserResponse" message="tns:registerUserResponse"/>
-</operation>
-<operation name="doPayment">
-<input wsam:Action="http://services/WSSplitpay/doPaymentRequest" message="tns:doPayment"/>
-<output wsam:Action="http://services/WSSplitpay/doPaymentResponse" message="tns:doPaymentResponse"/>
-</operation>
-<operation name="getDebtByGroup">
-<input wsam:Action="http://services/WSSplitpay/getDebtByGroupRequest" message="tns:getDebtByGroup"/>
-<output wsam:Action="http://services/WSSplitpay/getDebtByGroupResponse" message="tns:getDebtByGroupResponse"/>
-</operation>
-<operation name="getRol">
-<input wsam:Action="http://services/WSSplitpay/getRolRequest" message="tns:getRol"/>
-<output wsam:Action="http://services/WSSplitpay/getRolResponse" message="tns:getRolResponse"/>
-</operation>
-<operation name="getUsersGroup">
-<input wsam:Action="http://services/WSSplitpay/getUsersGroupRequest" message="tns:getUsersGroup"/>
-<output wsam:Action="http://services/WSSplitpay/getUsersGroupResponse" message="tns:getUsersGroupResponse"/>
 </operation>
 </portType>
 <binding name="WSSplitpayPortBinding" type="tns:WSSplitpay">
@@ -137,61 +137,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="finalDebtResolution">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getUsersNotInGroup">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
 <operation name="getGroups">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="addMembers">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="loginUser">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="postingBill">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="registerUser">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -209,7 +155,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getDebtByGroup">
+<operation name="addMembers">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -227,7 +173,61 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="registerUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="loginUser">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getUsersGroup">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="postingBill">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getDebtByGroup">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="finalDebtResolution">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getUsersNotInGroup">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

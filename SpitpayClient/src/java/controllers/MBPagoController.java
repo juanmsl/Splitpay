@@ -8,6 +8,7 @@ package controllers;
 import integration.splitpaysoap.Pago;
 import integration.splitpaysoap.WSSplitpay;
 import integration.splitpaysoap.WSSplitpay_Service;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.GregorianCalendar;
@@ -15,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -26,11 +29,8 @@ import javax.xml.ws.WebServiceRef;
  * @author sala_a
  */
 @Named(value = "mBPagoController")
-@Dependent
-public class MBPagoController {
-
-    @WebServiceRef(wsdlLocation = "WEB-INF/wsdl/server.splitpay.com_8080/WSSplitpay/WSSplitpay.wsdl")
-    private WSSplitpay_Service service;
+@ViewScoped
+public class MBPagoController implements Serializable {
 
     private BigInteger montoAPagar;
     private String concepto;
@@ -53,14 +53,6 @@ public class MBPagoController {
         return grupo;
     }
 
-    public WSSplitpay_Service getService() {
-        return service;
-    }
-
-    public void setService(WSSplitpay_Service service) {
-        this.service = service;
-    }
-
     public String getResult() {
         return result;
     }
@@ -68,8 +60,6 @@ public class MBPagoController {
     public void setResult(String result) {
         this.result = result;
     }
-    
-    
 
     public void setGrupo(MBGroupController grupo) {
         this.grupo = grupo;
@@ -147,6 +137,9 @@ public class MBPagoController {
         } catch (DatatypeConfigurationException ex) {
             Logger.getLogger(MBPostingBillController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("Monto pago: " + pago.getMonto());
+        System.out.println("Concepto: " + getConcepto());
+        System.out.println("descripcion: " + getDescripcion());
         if(doPayment(pago)){
             this.setResult("El pago se esta procesando");
             
