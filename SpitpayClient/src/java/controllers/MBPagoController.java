@@ -149,6 +149,7 @@ public class MBPagoController {
         }
         if(doPayment(pago)){
             this.setResult("El pago se esta procesando");
+            
             //consumo servicio PayPal
         }else{
             this.setResult("No se pudo procesar el pago");
