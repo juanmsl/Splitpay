@@ -466,3 +466,5 @@ nbdist/
 # should be stored in the .pubxml.user file.
 
 # End of https://www.gitignore.io/api/java,csharp,netbeans,java-web,visualstudio
+/TransaccionesSplitpay/nbproject/private/
+/EJBTransaction/nbproject/private/
