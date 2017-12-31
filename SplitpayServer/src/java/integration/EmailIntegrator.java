@@ -20,7 +20,7 @@ public class EmailIntegrator {
 
     public boolean sendMessage(final String email, String text) {
         final String username = "juanmsl_pk@hotmail.com";
-        final String password = "aguilap0rs1empre";
+        final String password = "**********************";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
